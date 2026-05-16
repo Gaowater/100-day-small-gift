@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 白天粒子容器 -->
-    <div class="day-particles" id="dayParticles"></div>
+    <!-- 白天光斑容器 -->
+    <div class="day-glow" id="dayGlow"></div>
     <!-- 夜景星光容器 -->
     <div class="night-stars" id="nightStars"></div>
 
@@ -266,21 +266,22 @@
             }
             musicPlaying = !musicPlaying;
         });
-                // ========== 白天粒子 ==========
-        const dayParticles = document.getElementById('dayParticles');
-        for (let i = 0; i < 12; i++) {
-            const p = document.createElement('div');
-            p.className = 'day-particle';
-            p.style.cssText = `
-                left: ${Math.random() * 100}%;
-                bottom: ${-5 + Math.random() * 20}%;
-                width: ${2 + Math.random() * 3}px;
-                height: ${2 + Math.random() * 3}px;
-                animation-delay: ${Math.random() * 8}s;
-                animation-duration: ${8 + Math.random() * 12}s;
-                opacity: ${0.15 + Math.random() * 0.25};
+        // ========== 白天光斑 ==========
+        const dayGlow = document.getElementById('dayGlow');
+        for (let i = 0; i < 5; i++) {
+            const glow = document.createElement('div');
+            glow.className = 'glow-spot';
+            const size = 100 + Math.random() * 140;
+            glow.style.cssText = `
+                left: ${Math.random() * 90}%;
+                top: ${Math.random() * 90}%;
+                width: ${size}px;
+                height: ${size}px;
+                animation-delay: ${Math.random() * 10}s;
+                animation-duration: ${14 + Math.random() * 16}s;
+                opacity: ${0.07 + Math.random() * 0.1};
             `;
-            dayParticles.appendChild(p);
+            dayGlow.appendChild(glow);
         }
 
         // ========== 夜景远处星光 ==========
