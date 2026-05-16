@@ -84,7 +84,7 @@
             cardEl.className = 'card';
             cardEl.setAttribute('data-index', index);
             
-            // 第5张卡片加提示
+            // 第5张卡片（index=4）加提示
             const hintHTML = (index === 4) ? '<p class="card-hint">✦ 双击这里</p>' : '';
             
             cardEl.innerHTML = `
@@ -129,8 +129,7 @@
             
             grid.innerHTML = '';
             
-            // 相册照片列表（有几张放几张）
-            const albumPhotos = ['a1.jpg', 'a2.jpg', 'a3.jpg', 'a4.jpg', 'a5.jpg', 'a6.jpg'];
+            const albumPhotos = ['a7.jpg', 'a8.jpg', 'a9.jpg', 'a10.jpg', 'a11.jpg', 'a12.jpg'];
             
             albumPhotos.forEach(photo => {
                 const imgEl = document.createElement('img');
@@ -162,24 +161,16 @@
         const headerHint = document.getElementById('headerHint');
         let starsActive = false;
 
-        // 生成星光粒子
         function createStars() {
             starsContainer.innerHTML = '';
             for (let i = 0; i < 16; i++) {
                 const star = document.createElement('div');
                 star.className = 'star-particle';
                 
-                // 随机位置（百分比，限定在header区域内）
                 const left = Math.random() * 100;
                 const top = Math.random() * 100;
-                
-                // 随机大小
                 const size = 2 + Math.random() * 4;
-                
-                // 随机延迟
                 const delay = Math.random() * 3;
-                
-                // 随机动画时长
                 const duration = 2 + Math.random() * 4;
                 
                 star.style.cssText = `
@@ -195,7 +186,6 @@
             }
         }
 
-        // 双击触发星光
         headerArea.addEventListener('dblclick', function(e) {
             e.preventDefault();
             if (!starsActive) {
@@ -204,7 +194,6 @@
                 headerHint.textContent = '✨ 星光已点亮';
                 createStars();
                 
-                // 2秒后提示文字变淡
                 setTimeout(() => {
                     headerHint.style.opacity = '0.4';
                 }, 2000);
