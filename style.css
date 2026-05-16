@@ -275,24 +275,39 @@ body {
 }
 
 .album-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    display: flex;
+    gap: 12px;
     margin-bottom: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
 }
 
 .album-grid img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
+    flex: 0 0 auto;
+    width: 140px;
+    height: 200px;
     object-fit: cover;
     border-radius: 10px;
     cursor: pointer;
+    scroll-snap-align: start;
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .album-grid img:hover {
     transform: scale(1.04);
     opacity: 0.9;
+}
+
+/* 滚动条美化 */
+.album-grid::-webkit-scrollbar {
+    height: 4px;
+}
+
+.album-grid::-webkit-scrollbar-thumb {
+    background: #d9c4a8;
+    border-radius: 2px;
 }
 
 .album-video {
