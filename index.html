@@ -8,14 +8,19 @@
 </head>
 <body>
     <!-- 背景音乐 -->
-    <audio id="bgm" loop autoplay>
+    <audio id="bgm" loop autoplay muted playsinline>
         <source src="bgm.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- 随机句子弹出 -->
+    <div class="shake-toast" id="shakeToast"></div>
+
+    <!-- 流星雨容器 -->
+    <div class="meteor-container" id="meteorContainer"></div>
 
     <!-- 昼夜切换图标 -->
     <div class="theme-toggle" id="themeToggle" title="切换昼夜">
         <div class="toggle-icon">
-            <!-- 太阳 -->
             <div class="sun">
                 <div class="sun-core"></div>
                 <div class="sun-ray r1"></div>
@@ -27,7 +32,6 @@
                 <div class="sun-ray r7"></div>
                 <div class="sun-ray r8"></div>
             </div>
-            <!-- 月亮 -->
             <div class="moon">
                 <div class="moon-body"></div>
                 <div class="moon-crater c1"></div>
@@ -36,10 +40,8 @@
                 <div class="moon-crater c4"></div>
                 <div class="moon-shadow"></div>
             </div>
-            <!-- 云朵 -->
             <div class="cloud c1"></div>
             <div class="cloud c2"></div>
-            <!-- 星星 -->
             <div class="toggle-star s1"></div>
             <div class="toggle-star s2"></div>
             <div class="toggle-star s3"></div>
@@ -57,7 +59,6 @@
     <div class="container">
         <!-- 顶部 -->
         <header class="header" id="headerArea">
-            <!-- 星光容器 -->
             <div class="stars-container" id="starsContainer"></div>
             <div class="days-badge">
                 <span class="days-number" id="daysCount">100</span>
@@ -68,9 +69,7 @@
         </header>
 
         <!-- 卡片区域 -->
-        <div class="cards" id="cardsContainer">
-            <!-- JS动态生成 -->
-        </div>
+        <div class="cards" id="cardsContainer"></div>
 
         <!-- 底部 -->
         <footer class="footer">
@@ -82,9 +81,7 @@
     <div class="album-overlay" id="albumOverlay">
         <div class="album-modal">
             <span class="album-close">&times;</span>
-            <div class="album-grid">
-                <!-- JS动态生成 -->
-            </div>
+            <div class="album-grid"></div>
             <div class="album-video">
                 <video controls playsinline>
                     <source src="video.mp4" type="video/mp4">
@@ -105,13 +102,26 @@
         // ========== 计算天数 ==========
         const startDate = new Date('2026-02-07');
         const today = new Date();
-        const diffTime = today - startDate;
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+        const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
         document.getElementById('daysCount').textContent = diffDays >= 1 ? diffDays : 1;
+        document.getElementById('todayDate').textContent = `今天 ${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
 
-        // ========== 今天日期 ==========
-        const dateStr = `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
-        document.getElementById('todayDate').textContent = `今天 ${dateStr}`;
+        // ========== 随机句子池（50句，积极向上，不含爱情） ==========
+        const shakeQuotes = [
+            "今天也是元气满满的一天", "阳光正好，微风不燥", "每一步都算数", "好事正在发生",
+            "你比想象中更坚强", "今天也要加油呀", "生活总会给你惊喜", "保持热爱，奔赴山海",
+            "慢慢来，比较快", "今天很好，明天会更好", "做自己的小太阳", "努力的人运气不会太差",
+            "一切都会好起来的", "笑一个吧，没什么大不了", "今天也是值得的一天", "往前走，别回头",
+            "你很棒，真的", "每天都是新的开始", "加油，你可以的", "生活会奖励努力的人",
+            "别急，花会开的", "坚持就是胜利", "明天又是崭新的一天", "保持微笑，好运自来",
+            "今天的努力是明天的底气", "相信自己，你能行", "每个平凡的日子都在发光", "未来可期",
+            "一步一个脚印", "累了就休息，但别放弃", "抬头看看天空吧", "生活明朗，万物可爱",
+            "好运气正在路上", "今天辛苦了，明天继续", "你是独一无二的", "风雨过后有彩虹",
+            "种一棵树最好的时间是现在", "不要慌，月亮也在慢慢升", "今天的烦恼今天过", "做一个温暖的人",
+            "世界很大，你很珍贵", "保持好奇心", "每天进步一点点", "认真生活的人最可爱",
+            "明天见，更好的你", "时光不负有心人", "做你喜欢的事", "简单点，快乐点",
+            "新的一天，新的开始", "愿你今天有个好心情"
+        ];
 
         // ========== 生成卡片 ==========
         const container = document.getElementById('cardsContainer');
@@ -119,11 +129,9 @@
             const cardEl = document.createElement('div');
             cardEl.className = 'card';
             cardEl.setAttribute('data-index', index);
-            
             let hintHTML = '';
             if (index === 4) hintHTML = '<p class="card-hint">✦ 双击这里</p>';
             if (index === 6) hintHTML = '<p class="card-hint">✦ 双击这里</p>';
-            
             cardEl.innerHTML = `
                 <div class="card-image" onclick="openLightbox('images/${card.image}')">
                     <img src="images/${card.image}" alt="${card.title || '图片' + (index + 1)}" loading="lazy">
@@ -134,67 +142,43 @@
                     ${hintHTML}
                 </div>
             `;
-            
-            if (index === 4) {
-                cardEl.addEventListener('dblclick', function(e) {
-                    e.preventDefault();
-                    openAlbum();
-                });
-            }
-            
-            if (index === 6) {
-                cardEl.addEventListener('dblclick', function(e) {
-                    e.preventDefault();
-                    openSingleImage('images/album/secret.jpg');
-                });
-            }
-            
+            if (index === 4) cardEl.addEventListener('dblclick', e => { e.preventDefault(); openAlbum(); });
+            if (index === 6) cardEl.addEventListener('dblclick', e => { e.preventDefault(); openSingleImage('images/album/secret.jpg'); });
             container.appendChild(cardEl);
         });
 
         // ========== 图片灯箱 ==========
         function openLightbox(src) {
-            const lightbox = document.getElementById('lightbox');
-            lightbox.style.display = 'flex';
-            lightbox.querySelector('img').src = src;
+            const lb = document.getElementById('lightbox');
+            lb.style.display = 'flex';
+            lb.querySelector('img').src = src;
         }
-
         document.getElementById('lightbox').addEventListener('click', function(e) {
-            if (e.target === this || e.target.className === 'lightbox-close') {
-                this.style.display = 'none';
-            }
+            if (e.target === this || e.target.className === 'lightbox-close') this.style.display = 'none';
         });
 
         // ========== 相册 ==========
         function openAlbum() {
             const overlay = document.getElementById('albumOverlay');
             const grid = overlay.querySelector('.album-grid');
-            
             grid.innerHTML = '';
-            
-            const albumPhotos = ['a7.jpg', 'a8.jpg', 'a9.jpg', 'a10.jpg', 'a11.jpg', 'a12.jpg'];
-            
-            albumPhotos.forEach(photo => {
-                const imgEl = document.createElement('img');
-                imgEl.src = 'images/album/' + photo;
-                imgEl.alt = '相册照片';
-                imgEl.loading = 'lazy';
-                imgEl.addEventListener('click', function() {
-                    openLightbox('images/album/' + photo);
-                });
-                grid.appendChild(imgEl);
+            ['a7.jpg','a8.jpg','a9.jpg','a10.jpg','a11.jpg','a12.jpg'].forEach(photo => {
+                const img = document.createElement('img');
+                img.src = 'images/album/' + photo;
+                img.alt = '相册照片';
+                img.loading = 'lazy';
+                img.onclick = () => openLightbox('images/album/' + photo);
+                grid.appendChild(img);
             });
-            
             overlay.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
-
         document.getElementById('albumOverlay').addEventListener('click', function(e) {
             if (e.target === this || e.target.className === 'album-close') {
                 this.style.display = 'none';
                 document.body.style.overflow = '';
-                const video = this.querySelector('video');
-                if (video) video.pause();
+                const v = this.querySelector('video');
+                if (v) v.pause();
             }
         });
 
@@ -202,10 +186,7 @@
         function openSingleImage(src) {
             const overlay = document.createElement('div');
             overlay.className = 'single-image-overlay';
-            overlay.innerHTML = `
-                <span class="single-image-close">&times;</span>
-                <img src="${src}" alt="照片">
-            `;
+            overlay.innerHTML = `<span class="single-image-close">&times;</span><img src="${src}" alt="照片">`;
             overlay.addEventListener('click', function(e) {
                 if (e.target === overlay || e.target.className === 'single-image-close') {
                     overlay.remove();
@@ -221,83 +202,58 @@
         const starsContainer = document.getElementById('starsContainer');
         const headerHint = document.getElementById('headerHint');
         let starsActive = false;
-
         function createStars() {
             starsContainer.innerHTML = '';
             for (let i = 0; i < 16; i++) {
                 const star = document.createElement('div');
                 star.className = 'star-particle';
-                
-                const left = Math.random() * 100;
-                const top = Math.random() * 100;
-                const size = 2 + Math.random() * 4;
-                const delay = Math.random() * 3;
-                const duration = 2 + Math.random() * 4;
-                
-                star.style.cssText = `
-                    left: ${left}%;
-                    top: ${top}%;
-                    width: ${size}px;
-                    height: ${size}px;
-                    animation-delay: ${delay}s;
-                    animation-duration: ${duration}s;
-                `;
-                
+                star.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${2+Math.random()*4}px;height:${2+Math.random()*4}px;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*4}s;`;
                 starsContainer.appendChild(star);
             }
         }
-
-        headerArea.addEventListener('dblclick', function(e) {
+        headerArea.addEventListener('dblclick', e => {
             e.preventDefault();
             if (!starsActive) {
                 starsActive = true;
                 headerArea.classList.add('stars-active');
                 headerHint.textContent = '✨ 星光已点亮';
                 createStars();
-                
-                setTimeout(() => {
-                    headerHint.style.opacity = '0.4';
-                }, 2000);
+                setTimeout(() => headerHint.style.opacity = '0.4', 2000);
             }
         });
 
         // ========== 昼夜切换 ==========
         const themeToggle = document.getElementById('themeToggle');
         let isNight = false;
-
-        themeToggle.addEventListener('click', function() {
+        themeToggle.addEventListener('click', () => {
             isNight = !isNight;
             if (isNight) {
                 document.body.classList.add('night-mode');
-                // 如果星光还没点亮，自动点亮
                 if (!starsActive) {
                     starsActive = true;
                     headerArea.classList.add('stars-active');
                     headerHint.textContent = '✨ 星光已点亮';
                     createStars();
-                    setTimeout(() => {
-                        headerHint.style.opacity = '0.4';
-                    }, 2000);
+                    setTimeout(() => headerHint.style.opacity = '0.4', 2000);
                 }
             } else {
                 document.body.classList.remove('night-mode');
             }
         });
 
-        // ========== 音乐控制 ==========
+        // ========== 音乐 ==========
         const bgm = document.getElementById('bgm');
         const musicBtn = document.getElementById('musicBtn');
         const iconOn = document.querySelector('.music-icon-on');
         const iconOff = document.querySelector('.music-icon-off');
         let musicPlaying = true;
-
+        bgm.muted = false;
         bgm.volume = 0.5;
         bgm.play().catch(() => {
             musicPlaying = false;
             iconOn.style.display = 'none';
             iconOff.style.display = 'inline';
         });
-
         musicBtn.addEventListener('click', () => {
             if (musicPlaying) {
                 bgm.pause();
@@ -309,6 +265,101 @@
                 iconOff.style.display = 'none';
             }
             musicPlaying = !musicPlaying;
+        });
+
+        // ========== 摇一摇彩蛋 ==========
+        const shakeToast = document.getElementById('shakeToast');
+        const meteorContainer = document.getElementById('meteorContainer');
+        const allCards = document.querySelectorAll('.card');
+        let shakeCooldown = false;
+        let lastShakeTime = 0;
+        const SHAKE_THRESHOLD = 15;
+        const SHAKE_COOLDOWN = 3000;
+
+        function triggerCardShake() {
+            allCards.forEach(card => {
+                card.classList.add('card-shake');
+                setTimeout(() => card.classList.remove('card-shake'), 600);
+            });
+        }
+
+        function showRandomQuote() {
+            const quote = shakeQuotes[Math.floor(Math.random() * shakeQuotes.length)];
+            shakeToast.textContent = quote;
+            shakeToast.classList.add('show');
+            setTimeout(() => shakeToast.classList.remove('show'), 2500);
+        }
+
+        function triggerMeteorShower() {
+            meteorContainer.innerHTML = '';
+            const count = 8 + Math.floor(Math.random() * 7);
+            for (let i = 0; i < count; i++) {
+                const meteor = document.createElement('div');
+                meteor.className = 'meteor';
+                const top = Math.random() * 60;
+                const left = Math.random() * 90;
+                const delay = Math.random() * 1.5;
+                const duration = 0.6 + Math.random() * 0.8;
+                const size = 1.5 + Math.random() * 2.5;
+                meteor.style.cssText = `
+                    top: ${top}%;
+                    left: ${left}%;
+                    width: ${size * 30}px;
+                    height: ${size}px;
+                    animation-delay: ${delay}s;
+                    animation-duration: ${duration}s;
+                `;
+                meteorContainer.appendChild(meteor);
+            }
+            const totalTime = 1500 + count * 200;
+            shakeCooldown = true;
+            setTimeout(() => {
+                meteorContainer.innerHTML = '';
+                shakeCooldown = false;
+            }, totalTime);
+        }
+
+        function handleShake() {
+            const now = Date.now();
+            if (shakeCooldown) return;
+            if (now - lastShakeTime < SHAKE_COOLDOWN) return;
+            lastShakeTime = now;
+            triggerCardShake();
+            if (isNight) {
+                triggerMeteorShower();
+            } else {
+                showRandomQuote();
+            }
+        }
+
+        // 设备陀螺仪摇动检测
+        if (window.DeviceMotionEvent) {
+            let lastX = 0, lastY = 0, lastZ = 0;
+            window.addEventListener('deviceorientation', e => {
+                const x = e.beta || 0, y = e.gamma || 0, z = e.alpha || 0;
+                const diff = Math.abs(x - lastX) + Math.abs(y - lastY) + Math.abs(z - lastZ);
+                if (diff > 50) handleShake();
+                lastX = x; lastY = y; lastZ = z;
+            });
+        }
+
+        // 桌面端：连续快速晃动鼠标作为替代
+        let mouseShakeCount = 0;
+        let mouseShakeTimer = null;
+        let lastMouseX = 0, lastMouseY = 0;
+        document.addEventListener('mousemove', e => {
+            const diff = Math.abs(e.clientX - lastMouseX) + Math.abs(e.clientY - lastMouseY);
+            if (diff > 100) {
+                mouseShakeCount++;
+                if (mouseShakeCount >= 5) {
+                    handleShake();
+                    mouseShakeCount = 0;
+                }
+                clearTimeout(mouseShakeTimer);
+                mouseShakeTimer = setTimeout(() => mouseShakeCount = 0, 800);
+            }
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
         });
     </script>
 </body>
