@@ -825,3 +825,16 @@ body:not(.night-mode) .night-star {
     opacity: 0 !important;
     animation-play-state: paused;
 }
+
+/* ========== 底部随机句子 ========== */
+.footer-quote {
+    font-size: 13px;
+    color: #c4a88c;
+    letter-spacing: 1px;
+    margin-top: 8px;
+    transition: color 0.8s ease;
+}
+
+body.night-mode .footer-quote {
+    color: #9088a0;
+}
