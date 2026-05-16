@@ -377,8 +377,8 @@ body {
 /* ========== 音乐开关 ========== */
 .music-toggle {
     position: fixed;
-    bottom: 28px;
-    right: 28px;
+    bottom: 70px;
+    right: 20px;
     width: 44px;
     height: 44px;
     background: #fffdf9;
