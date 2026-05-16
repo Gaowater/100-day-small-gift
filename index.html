@@ -7,11 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- 白天光斑容器 -->
-    <div class="day-glow" id="dayGlow"></div>
-    <!-- 夜景星光容器 -->
-    <div class="night-stars" id="nightStars"></div>
-
     <!-- 背景音乐 -->
     <audio id="bgm" loop autoplay muted playsinline>
         <source src="bgm.mp3" type="audio/mpeg">
@@ -105,8 +100,8 @@
         const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
         document.getElementById('daysCount').textContent = diffDays >= 1 ? diffDays : 1;
         document.getElementById('todayDate').textContent = `今天 ${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
-        
-                // ========== 底部随机句子 ==========
+
+        // ========== 底部随机句子 ==========
         const footerQuotes = [
             "今天也是元气满满的一天", "阳光正好，微风不燥", "每一步都算数", "好事正在发生",
             "你比想象中更坚强", "今天也要加油呀", "生活总会给你惊喜", "保持热爱，奔赴山海",
@@ -123,6 +118,7 @@
             "新的一天，新的开始", "愿你今天有个好心情"
         ];
         document.getElementById('footerQuote').textContent = '「 ' + footerQuotes[Math.floor(Math.random() * footerQuotes.length)] + ' 」';
+
         // ========== 生成卡片 ==========
         const container = document.getElementById('cardsContainer');
         cardsData.forEach((card, index) => {
@@ -266,39 +262,6 @@
             }
             musicPlaying = !musicPlaying;
         });
-        // ========== 白天光斑 ==========
-        const dayGlow = document.getElementById('dayGlow');
-        for (let i = 0; i < 5; i++) {
-            const glow = document.createElement('div');
-            glow.className = 'glow-spot';
-            const size = 100 + Math.random() * 140;
-            glow.style.cssText = `
-                left: ${Math.random() * 90}%;
-                top: ${Math.random() * 90}%;
-                width: ${size}px;
-                height: ${size}px;
-                animation-delay: ${Math.random() * 10}s;
-                animation-duration: ${14 + Math.random() * 16}s;
-                opacity: ${0.07 + Math.random() * 0.1};
-            `;
-            dayGlow.appendChild(glow);
-        }
-
-        // ========== 夜景远处星光 ==========
-        const nightStars = document.getElementById('nightStars');
-        for (let i = 0; i < 30; i++) {
-            const s = document.createElement('div');
-            s.className = 'night-star';
-            s.style.cssText = `
-                left: ${Math.random() * 100}%;
-                top: ${Math.random() * 100}%;
-                width: ${1 + Math.random() * 2}px;
-                height: ${1 + Math.random() * 2}px;
-                animation-delay: ${Math.random() * 5}s;
-                animation-duration: ${2 + Math.random() * 4}s;
-            `;
-            nightStars.appendChild(s);
-        }
     </script>
 </body>
 </html>
