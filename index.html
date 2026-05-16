@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100天</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部 -->
+        <header class="header">
+            <div class="days-badge">
+                <span class="days-number" id="daysCount">100</span>
+                <span class="days-label">天</span>
+            </div>
+            <p class="subtitle">始于 2026.02.07</p>
+        </header>
+
+        <!-- 卡片区域 -->
+        <div class="cards" id="cardsContainer">
+            <!-- JS动态生成 -->
+        </div>
+
+        <!-- 底部 -->
+        <footer class="footer">
+            <p id="todayDate"></p>
+        </footer>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        // ========== 计算天数 ==========
+        const startDate = new Date('2026-02-07');
+        const today = new Date();
+        const diffTime = today - startDate;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        document.getElementById('daysCount').textContent = diffDays >= 0 ? diffDays : 0;
+
+        // ========== 今天日期 ==========
+        const dateStr = `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
+        document.getElementById('todayDate').textContent = `今天 ${dateStr}`;
+
+        // ========== 生成卡片 ==========
+        const container = document.getElementById('cardsContainer');
+        cardsData.forEach((card, index) => {
+            const cardEl = document.createElement('div');
+            cardEl.className = 'card';
+            cardEl.innerHTML = `
+                <div class="card-image" onclick="openLightbox('images/${card.image}')">
+                    <img src="images/${card.image}" alt="${card.title || '图片 ' + (index + 1)}" loading="lazy">
+                </div>
+                <div class="card-content">
+                    ${card.title ? `<h3 class="card-title">${card.title}</h3>` : ''}
+                    <p class="card-text">${card.text}</p>
+                </div>
+            `;
+            container.appendChild(cardEl);
+        });
+
+        // ========== 图片灯箱 ==========
+        function openLightbox(src) {
+            const overlay = document.createElement('div');
+            overlay.className = 'lightbox';
+            overlay.innerHTML = `
+                <span class="lightbox-close">&times;</span>
+                <img src="${src}" alt="放大图片">
+            `;
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay || e.target.className === 'lightbox-close') {
+                    overlay.remove();
+                }
+            });
+            document.body.appendChild(overlay);
+        }
+    </script>
+</body>
+</html>
