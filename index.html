@@ -268,15 +268,16 @@
         });
 
         // ========== 摇一摇彩蛋 ==========
+           // ========== 摇一摇彩蛋 ==========
         const shakeToast = document.getElementById('shakeToast');
         const meteorContainer = document.getElementById('meteorContainer');
-        const allCards = document.querySelectorAll('.card');
         let shakeCooldown = false;
+        let quoteCooldown = false;
         let lastShakeTime = 0;
-        const SHAKE_THRESHOLD = 15;
-        const SHAKE_COOLDOWN = 3000;
+        const SHAKE_INTERVAL = 2000;
 
         function triggerCardShake() {
+            const allCards = document.querySelectorAll('#cardsContainer .card');
             allCards.forEach(card => {
                 card.classList.add('card-shake');
                 setTimeout(() => card.classList.remove('card-shake'), 600);
@@ -284,35 +285,43 @@
         }
 
         function showRandomQuote() {
+            if (quoteCooldown) return;
+            quoteCooldown = true;
             const quote = shakeQuotes[Math.floor(Math.random() * shakeQuotes.length)];
             shakeToast.textContent = quote;
             shakeToast.classList.add('show');
-            setTimeout(() => shakeToast.classList.remove('show'), 2500);
+            setTimeout(() => {
+                shakeToast.classList.remove('show');
+                quoteCooldown = false;
+            }, 2000);
         }
 
         function triggerMeteorShower() {
+            if (shakeCooldown) return;
+            shakeCooldown = true;
             meteorContainer.innerHTML = '';
-            const count = 8 + Math.floor(Math.random() * 7);
+            const count = 10 + Math.floor(Math.random() * 8);
             for (let i = 0; i < count; i++) {
                 const meteor = document.createElement('div');
                 meteor.className = 'meteor';
-                const top = Math.random() * 60;
-                const left = Math.random() * 90;
-                const delay = Math.random() * 1.5;
-                const duration = 0.6 + Math.random() * 0.8;
-                const size = 1.5 + Math.random() * 2.5;
+                const top = Math.random() * 70;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 2;
+                const duration = 0.8 + Math.random() * 1.2;
+                const size = 2 + Math.random() * 3;
                 meteor.style.cssText = `
                     top: ${top}%;
                     left: ${left}%;
-                    width: ${size * 30}px;
+                    width: ${size * 40}px;
                     height: ${size}px;
                     animation-delay: ${delay}s;
                     animation-duration: ${duration}s;
                 `;
                 meteorContainer.appendChild(meteor);
             }
-            const totalTime = 1500 + count * 200;
-            shakeCooldown = true;
+            const maxDelay = 2;
+            const maxDuration = 2;
+            const totalTime = (maxDelay + maxDuration) * 1000 + 500;
             setTimeout(() => {
                 meteorContainer.innerHTML = '';
                 shakeCooldown = false;
@@ -321,10 +330,11 @@
 
         function handleShake() {
             const now = Date.now();
-            if (shakeCooldown) return;
-            if (now - lastShakeTime < SHAKE_COOLDOWN) return;
+            if (now - lastShakeTime < SHAKE_INTERVAL) return;
             lastShakeTime = now;
+
             triggerCardShake();
+
             if (isNight) {
                 triggerMeteorShower();
             } else {
@@ -332,35 +342,32 @@
             }
         }
 
-        // 设备陀螺仪摇动检测
+        // 移动端陀螺仪
         if (window.DeviceMotionEvent) {
             let lastX = 0, lastY = 0, lastZ = 0;
             window.addEventListener('deviceorientation', e => {
                 const x = e.beta || 0, y = e.gamma || 0, z = e.alpha || 0;
                 const diff = Math.abs(x - lastX) + Math.abs(y - lastY) + Math.abs(z - lastZ);
-                if (diff > 50) handleShake();
+                if (diff > 40) handleShake();
                 lastX = x; lastY = y; lastZ = z;
             });
         }
 
-        // 桌面端：连续快速晃动鼠标作为替代
+        // 桌面端替代：快速晃动鼠标
         let mouseShakeCount = 0;
         let mouseShakeTimer = null;
         let lastMouseX = 0, lastMouseY = 0;
         document.addEventListener('mousemove', e => {
             const diff = Math.abs(e.clientX - lastMouseX) + Math.abs(e.clientY - lastMouseY);
-            if (diff > 100) {
+            if (diff > 120) {
                 mouseShakeCount++;
-                if (mouseShakeCount >= 5) {
+                if (mouseShakeCount >= 6) {
                     handleShake();
                     mouseShakeCount = 0;
                 }
                 clearTimeout(mouseShakeTimer);
-                mouseShakeTimer = setTimeout(() => mouseShakeCount = 0, 800);
+                mouseShakeTimer = setTimeout(() => mouseShakeCount = 0, 700);
             }
             lastMouseX = e.clientX;
             lastMouseY = e.clientY;
         });
-    </script>
-</body>
-</html>
