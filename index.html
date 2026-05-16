@@ -7,14 +7,28 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 背景音乐 -->
+    <audio id="bgm" loop autoplay>
+        <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 音乐开关按钮 -->
+    <div class="music-toggle" id="musicBtn" title="音乐开关">
+        <span class="music-icon-on">🔊</span>
+        <span class="music-icon-off" style="display:none;">🔇</span>
+    </div>
+
     <div class="container">
         <!-- 顶部 -->
-        <header class="header">
+        <header class="header" id="headerArea">
+            <!-- 星光容器 -->
+            <div class="stars-container" id="starsContainer"></div>
             <div class="days-badge">
                 <span class="days-number" id="daysCount">100</span>
                 <span class="days-label">天</span>
             </div>
             <p class="subtitle">始于 2026.02.07</p>
+            <p class="hint-text" id="headerHint">✨ 双击这里</p>
         </header>
 
         <!-- 卡片区域 -->
@@ -28,13 +42,35 @@
         </footer>
     </div>
 
+    <!-- 相册弹窗 -->
+    <div class="album-overlay" id="albumOverlay">
+        <div class="album-modal">
+            <span class="album-close">&times;</span>
+            <div class="album-grid">
+                <!-- JS动态生成 -->
+            </div>
+            <div class="album-video">
+                <video controls playsinline>
+                    <source src="video.mp4" type="video/mp4">
+                    你的浏览器不支持视频播放
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片灯箱 -->
+    <div class="lightbox" id="lightbox" style="display:none;">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="放大图片">
+    </div>
+
     <script src="config.js"></script>
     <script>
         // ========== 计算天数 ==========
         const startDate = new Date('2026-02-07');
         const today = new Date();
         const diffTime = today - startDate;
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))+1;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
         document.getElementById('daysCount').textContent = diffDays >= 1 ? diffDays : 1;
 
         // ========== 今天日期 ==========
@@ -46,33 +82,161 @@
         cardsData.forEach((card, index) => {
             const cardEl = document.createElement('div');
             cardEl.className = 'card';
+            cardEl.setAttribute('data-index', index);
+            
+            // 第5张卡片加提示
+            const hintHTML = (index === 4) ? '<p class="card-hint">✦ 双击这里</p>' : '';
+            
             cardEl.innerHTML = `
                 <div class="card-image" onclick="openLightbox('images/${card.image}')">
-                    <img src="images/${card.image}" alt="${card.title || '图片 ' + (index + 1)}" loading="lazy">
+                    <img src="images/${card.image}" alt="${card.title || '图片' + (index + 1)}" loading="lazy">
                 </div>
                 <div class="card-content">
                     ${card.title ? `<h3 class="card-title">${card.title}</h3>` : ''}
                     <p class="card-text">${card.text}</p>
+                    ${hintHTML}
                 </div>
             `;
+            
+            // 第5张卡片（index=4）双击打开相册
+            if (index === 4) {
+                cardEl.addEventListener('dblclick', function(e) {
+                    e.preventDefault();
+                    openAlbum();
+                });
+            }
+            
             container.appendChild(cardEl);
         });
 
         // ========== 图片灯箱 ==========
         function openLightbox(src) {
-            const overlay = document.createElement('div');
-            overlay.className = 'lightbox';
-            overlay.innerHTML = `
-                <span class="lightbox-close">&times;</span>
-                <img src="${src}" alt="放大图片">
-            `;
-            overlay.addEventListener('click', function(e) {
-                if (e.target === overlay || e.target.className === 'lightbox-close') {
-                    overlay.remove();
-                }
-            });
-            document.body.appendChild(overlay);
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'flex';
+            lightbox.querySelector('img').src = src;
         }
+
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this || e.target.className === 'lightbox-close') {
+                this.style.display = 'none';
+            }
+        });
+
+        // ========== 相册 ==========
+        function openAlbum() {
+            const overlay = document.getElementById('albumOverlay');
+            const grid = overlay.querySelector('.album-grid');
+            
+            grid.innerHTML = '';
+            
+            // 相册照片列表（有几张放几张）
+            const albumPhotos = ['a1.jpg', 'a2.jpg', 'a3.jpg', 'a4.jpg', 'a5.jpg', 'a6.jpg'];
+            
+            albumPhotos.forEach(photo => {
+                const imgEl = document.createElement('img');
+                imgEl.src = 'images/album/' + photo;
+                imgEl.alt = '相册照片';
+                imgEl.loading = 'lazy';
+                imgEl.addEventListener('click', function() {
+                    openLightbox('images/album/' + photo);
+                });
+                grid.appendChild(imgEl);
+            });
+            
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        document.getElementById('albumOverlay').addEventListener('click', function(e) {
+            if (e.target === this || e.target.className === 'album-close') {
+                this.style.display = 'none';
+                document.body.style.overflow = '';
+                const video = this.querySelector('video');
+                if (video) video.pause();
+            }
+        });
+
+        // ========== 星光特效 ==========
+        const headerArea = document.getElementById('headerArea');
+        const starsContainer = document.getElementById('starsContainer');
+        const headerHint = document.getElementById('headerHint');
+        let starsActive = false;
+
+        // 生成星光粒子
+        function createStars() {
+            starsContainer.innerHTML = '';
+            for (let i = 0; i < 16; i++) {
+                const star = document.createElement('div');
+                star.className = 'star-particle';
+                
+                // 随机位置（百分比，限定在header区域内）
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                
+                // 随机大小
+                const size = 2 + Math.random() * 4;
+                
+                // 随机延迟
+                const delay = Math.random() * 3;
+                
+                // 随机动画时长
+                const duration = 2 + Math.random() * 4;
+                
+                star.style.cssText = `
+                    left: ${left}%;
+                    top: ${top}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    animation-delay: ${delay}s;
+                    animation-duration: ${duration}s;
+                `;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // 双击触发星光
+        headerArea.addEventListener('dblclick', function(e) {
+            e.preventDefault();
+            if (!starsActive) {
+                starsActive = true;
+                headerArea.classList.add('stars-active');
+                headerHint.textContent = '✨ 星光已点亮';
+                createStars();
+                
+                // 2秒后提示文字变淡
+                setTimeout(() => {
+                    headerHint.style.opacity = '0.4';
+                }, 2000);
+            }
+        });
+
+        // ========== 音乐控制 ==========
+        const bgm = document.getElementById('bgm');
+        const musicBtn = document.getElementById('musicBtn');
+        const iconOn = document.querySelector('.music-icon-on');
+        const iconOff = document.querySelector('.music-icon-off');
+        let musicPlaying = true;
+
+        bgm.volume = 0.5;
+        bgm.play().catch(() => {
+            musicPlaying = false;
+            iconOn.style.display = 'none';
+            iconOff.style.display = 'inline';
+        });
+
+        musicBtn.addEventListener('click', () => {
+            if (musicPlaying) {
+                bgm.pause();
+                iconOn.style.display = 'none';
+                iconOff.style.display = 'inline';
+            } else {
+                bgm.play();
+                iconOn.style.display = 'inline';
+                iconOff.style.display = 'none';
+            }
+            musicPlaying = !musicPlaying;
+        });
     </script>
 </body>
 </html>
