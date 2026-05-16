@@ -12,12 +12,6 @@
         <source src="bgm.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- 随机句子弹出 -->
-    <div class="shake-toast" id="shakeToast"></div>
-
-    <!-- 流星雨容器 -->
-    <div class="meteor-container" id="meteorContainer"></div>
-
     <!-- 昼夜切换图标 -->
     <div class="theme-toggle" id="themeToggle" title="切换昼夜">
         <div class="toggle-icon">
@@ -105,23 +99,6 @@
         const diffDays = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
         document.getElementById('daysCount').textContent = diffDays >= 1 ? diffDays : 1;
         document.getElementById('todayDate').textContent = `今天 ${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
-
-        // ========== 随机句子池（50句，积极向上，不含爱情） ==========
-        const shakeQuotes = [
-            "今天也是元气满满的一天", "阳光正好，微风不燥", "每一步都算数", "好事正在发生",
-            "你比想象中更坚强", "今天也要加油呀", "生活总会给你惊喜", "保持热爱，奔赴山海",
-            "慢慢来，比较快", "今天很好，明天会更好", "做自己的小太阳", "努力的人运气不会太差",
-            "一切都会好起来的", "笑一个吧，没什么大不了", "今天也是值得的一天", "往前走，别回头",
-            "你很棒，真的", "每天都是新的开始", "加油，你可以的", "生活会奖励努力的人",
-            "别急，花会开的", "坚持就是胜利", "明天又是崭新的一天", "保持微笑，好运自来",
-            "今天的努力是明天的底气", "相信自己，你能行", "每个平凡的日子都在发光", "未来可期",
-            "一步一个脚印", "累了就休息，但别放弃", "抬头看看天空吧", "生活明朗，万物可爱",
-            "好运气正在路上", "今天辛苦了，明天继续", "你是独一无二的", "风雨过后有彩虹",
-            "种一棵树最好的时间是现在", "不要慌，月亮也在慢慢升", "今天的烦恼今天过", "做一个温暖的人",
-            "世界很大，你很珍贵", "保持好奇心", "每天进步一点点", "认真生活的人最可爱",
-            "明天见，更好的你", "时光不负有心人", "做你喜欢的事", "简单点，快乐点",
-            "新的一天，新的开始", "愿你今天有个好心情"
-        ];
 
         // ========== 生成卡片 ==========
         const container = document.getElementById('cardsContainer');
@@ -266,108 +243,6 @@
             }
             musicPlaying = !musicPlaying;
         });
-
-        // ========== 摇一摇彩蛋 ==========
-           // ========== 摇一摇彩蛋 ==========
-        const shakeToast = document.getElementById('shakeToast');
-        const meteorContainer = document.getElementById('meteorContainer');
-        let shakeCooldown = false;
-        let quoteCooldown = false;
-        let lastShakeTime = 0;
-        const SHAKE_INTERVAL = 2000;
-
-        function triggerCardShake() {
-            const allCards = document.querySelectorAll('#cardsContainer .card');
-            allCards.forEach(card => {
-                card.classList.add('card-shake');
-                setTimeout(() => card.classList.remove('card-shake'), 600);
-            });
-        }
-
-        function showRandomQuote() {
-            if (quoteCooldown) return;
-            quoteCooldown = true;
-            const quote = shakeQuotes[Math.floor(Math.random() * shakeQuotes.length)];
-            shakeToast.textContent = quote;
-            shakeToast.classList.add('show');
-            setTimeout(() => {
-                shakeToast.classList.remove('show');
-                quoteCooldown = false;
-            }, 2000);
-        }
-
-        function triggerMeteorShower() {
-            if (shakeCooldown) return;
-            shakeCooldown = true;
-            meteorContainer.innerHTML = '';
-            const count = 10 + Math.floor(Math.random() * 8);
-            for (let i = 0; i < count; i++) {
-                const meteor = document.createElement('div');
-                meteor.className = 'meteor';
-                const top = Math.random() * 70;
-                const left = Math.random() * 100;
-                const delay = Math.random() * 2;
-                const duration = 0.8 + Math.random() * 1.2;
-                const size = 2 + Math.random() * 3;
-                meteor.style.cssText = `
-                    top: ${top}%;
-                    left: ${left}%;
-                    width: ${size * 40}px;
-                    height: ${size}px;
-                    animation-delay: ${delay}s;
-                    animation-duration: ${duration}s;
-                `;
-                meteorContainer.appendChild(meteor);
-            }
-            const maxDelay = 2;
-            const maxDuration = 2;
-            const totalTime = (maxDelay + maxDuration) * 1000 + 500;
-            setTimeout(() => {
-                meteorContainer.innerHTML = '';
-                shakeCooldown = false;
-            }, totalTime);
-        }
-
-        function handleShake() {
-            const now = Date.now();
-            if (now - lastShakeTime < SHAKE_INTERVAL) return;
-            lastShakeTime = now;
-
-            triggerCardShake();
-
-            if (isNight) {
-                triggerMeteorShower();
-            } else {
-                showRandomQuote();
-            }
-        }
-
-        // 移动端陀螺仪
-        if (window.DeviceMotionEvent) {
-            let lastX = 0, lastY = 0, lastZ = 0;
-            window.addEventListener('deviceorientation', e => {
-                const x = e.beta || 0, y = e.gamma || 0, z = e.alpha || 0;
-                const diff = Math.abs(x - lastX) + Math.abs(y - lastY) + Math.abs(z - lastZ);
-                if (diff > 40) handleShake();
-                lastX = x; lastY = y; lastZ = z;
-            });
-        }
-
-        // 桌面端替代：快速晃动鼠标
-        let mouseShakeCount = 0;
-        let mouseShakeTimer = null;
-        let lastMouseX = 0, lastMouseY = 0;
-        document.addEventListener('mousemove', e => {
-            const diff = Math.abs(e.clientX - lastMouseX) + Math.abs(e.clientY - lastMouseY);
-            if (diff > 120) {
-                mouseShakeCount++;
-                if (mouseShakeCount >= 6) {
-                    handleShake();
-                    mouseShakeCount = 0;
-                }
-                clearTimeout(mouseShakeTimer);
-                mouseShakeTimer = setTimeout(() => mouseShakeCount = 0, 700);
-            }
-            lastMouseX = e.clientX;
-            lastMouseY = e.clientY;
-        });
+    </script>
+</body>
+</html>
