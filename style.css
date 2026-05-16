@@ -762,6 +762,7 @@ body.night-mode .album-video {
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
+    will-change: transform;  
 }
 
 .glow-spot {
