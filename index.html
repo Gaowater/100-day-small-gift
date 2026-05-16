@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- 白天粒子容器 -->
+    <div class="day-particles" id="dayParticles"></div>
+    <!-- 夜景星光容器 -->
+    <div class="night-stars" id="nightStars"></div>
+
     <!-- 背景音乐 -->
     <audio id="bgm" loop autoplay muted playsinline>
         <source src="bgm.mp3" type="audio/mpeg">
@@ -243,6 +248,38 @@
             }
             musicPlaying = !musicPlaying;
         });
+                // ========== 白天粒子 ==========
+        const dayParticles = document.getElementById('dayParticles');
+        for (let i = 0; i < 12; i++) {
+            const p = document.createElement('div');
+            p.className = 'day-particle';
+            p.style.cssText = `
+                left: ${Math.random() * 100}%;
+                bottom: ${-5 + Math.random() * 20}%;
+                width: ${2 + Math.random() * 3}px;
+                height: ${2 + Math.random() * 3}px;
+                animation-delay: ${Math.random() * 8}s;
+                animation-duration: ${8 + Math.random() * 12}s;
+                opacity: ${0.15 + Math.random() * 0.25};
+            `;
+            dayParticles.appendChild(p);
+        }
+
+        // ========== 夜景远处星光 ==========
+        const nightStars = document.getElementById('nightStars');
+        for (let i = 0; i < 30; i++) {
+            const s = document.createElement('div');
+            s.className = 'night-star';
+            s.style.cssText = `
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                width: ${1 + Math.random() * 2}px;
+                height: ${1 + Math.random() * 2}px;
+                animation-delay: ${Math.random() * 5}s;
+                animation-duration: ${2 + Math.random() * 4}s;
+            `;
+            nightStars.appendChild(s);
+        }
     </script>
 </body>
 </html>
