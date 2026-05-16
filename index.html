@@ -84,8 +84,10 @@
             cardEl.className = 'card';
             cardEl.setAttribute('data-index', index);
             
-            // 第5张卡片（index=4）加提示
-            const hintHTML = (index === 4) ? '<p class="card-hint">✦ 双击这里</p>' : '';
+            // 第5张和第7张卡片加提示
+            let hintHTML = '';
+            if (index === 4) hintHTML = '<p class="card-hint">✦ 双击这里</p>';
+            if (index === 6) hintHTML = '<p class="card-hint">✦ 双击这里</p>';
             
             cardEl.innerHTML = `
                 <div class="card-image" onclick="openLightbox('images/${card.image}')">
@@ -103,6 +105,14 @@
                 cardEl.addEventListener('dblclick', function(e) {
                     e.preventDefault();
                     openAlbum();
+                });
+            }
+            
+            // 第7张卡片（index=6）双击弹出单张照片
+            if (index === 6) {
+                cardEl.addEventListener('dblclick', function(e) {
+                    e.preventDefault();
+                    openSingleImage('images/album/secret.jpg');
                 });
             }
             
@@ -154,6 +164,24 @@
                 if (video) video.pause();
             }
         });
+
+        // ========== 单张图片弹出 ==========
+        function openSingleImage(src) {
+            const overlay = document.createElement('div');
+            overlay.className = 'single-image-overlay';
+            overlay.innerHTML = `
+                <span class="single-image-close">&times;</span>
+                <img src="${src}" alt="照片">
+            `;
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay || e.target.className === 'single-image-close') {
+                    overlay.remove();
+                    document.body.style.overflow = '';
+                }
+            });
+            document.body.appendChild(overlay);
+            document.body.style.overflow = 'hidden';
+        }
 
         // ========== 星光特效 ==========
         const headerArea = document.getElementById('headerArea');
