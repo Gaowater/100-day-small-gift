@@ -34,8 +34,8 @@
         const startDate = new Date('2026-02-07');
         const today = new Date();
         const diffTime = today - startDate;
-        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-        document.getElementById('daysCount').textContent = diffDays >= 0 ? diffDays : 0;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))+1;
+        document.getElementById('daysCount').textContent = diffDays >= 1 ? diffDays : 1;
 
         // ========== 今天日期 ==========
         const dateStr = `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
