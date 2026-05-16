@@ -12,6 +12,42 @@
         <source src="bgm.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- 昼夜切换图标 -->
+    <div class="theme-toggle" id="themeToggle" title="切换昼夜">
+        <div class="toggle-icon">
+            <!-- 太阳 -->
+            <div class="sun">
+                <div class="sun-core"></div>
+                <div class="sun-ray r1"></div>
+                <div class="sun-ray r2"></div>
+                <div class="sun-ray r3"></div>
+                <div class="sun-ray r4"></div>
+                <div class="sun-ray r5"></div>
+                <div class="sun-ray r6"></div>
+                <div class="sun-ray r7"></div>
+                <div class="sun-ray r8"></div>
+            </div>
+            <!-- 月亮 -->
+            <div class="moon">
+                <div class="moon-body"></div>
+                <div class="moon-crater c1"></div>
+                <div class="moon-crater c2"></div>
+                <div class="moon-crater c3"></div>
+                <div class="moon-crater c4"></div>
+                <div class="moon-shadow"></div>
+            </div>
+            <!-- 云朵 -->
+            <div class="cloud c1"></div>
+            <div class="cloud c2"></div>
+            <!-- 星星 -->
+            <div class="toggle-star s1"></div>
+            <div class="toggle-star s2"></div>
+            <div class="toggle-star s3"></div>
+            <div class="toggle-star s4"></div>
+            <div class="toggle-star s5"></div>
+        </div>
+    </div>
+
     <!-- 音乐开关按钮 -->
     <div class="music-toggle" id="musicBtn" title="音乐开关">
         <span class="music-icon-on">🔊</span>
@@ -84,7 +120,6 @@
             cardEl.className = 'card';
             cardEl.setAttribute('data-index', index);
             
-            // 第5张和第7张卡片加提示
             let hintHTML = '';
             if (index === 4) hintHTML = '<p class="card-hint">✦ 双击这里</p>';
             if (index === 6) hintHTML = '<p class="card-hint">✦ 双击这里</p>';
@@ -100,7 +135,6 @@
                 </div>
             `;
             
-            // 第5张卡片（index=4）双击打开相册
             if (index === 4) {
                 cardEl.addEventListener('dblclick', function(e) {
                     e.preventDefault();
@@ -108,7 +142,6 @@
                 });
             }
             
-            // 第7张卡片（index=6）双击弹出单张照片
             if (index === 6) {
                 cardEl.addEventListener('dblclick', function(e) {
                     e.preventDefault();
@@ -225,6 +258,29 @@
                 setTimeout(() => {
                     headerHint.style.opacity = '0.4';
                 }, 2000);
+            }
+        });
+
+        // ========== 昼夜切换 ==========
+        const themeToggle = document.getElementById('themeToggle');
+        let isNight = false;
+
+        themeToggle.addEventListener('click', function() {
+            isNight = !isNight;
+            if (isNight) {
+                document.body.classList.add('night-mode');
+                // 如果星光还没点亮，自动点亮
+                if (!starsActive) {
+                    starsActive = true;
+                    headerArea.classList.add('stars-active');
+                    headerHint.textContent = '✨ 星光已点亮';
+                    createStars();
+                    setTimeout(() => {
+                        headerHint.style.opacity = '0.4';
+                    }, 2000);
+                }
+            } else {
+                document.body.classList.remove('night-mode');
             }
         });
 
