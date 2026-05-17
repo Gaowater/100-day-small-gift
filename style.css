@@ -1029,3 +1029,37 @@ body.night-mode .mood-empty {
 .mood-item .mood-sad { width: 20px; height: 18px; }
 .mood-item .mood-excited { width: 20px; height: 20px; }
 .mood-item .mood-angry { width: 18px; height: 
+
+                        /* ========== 更新日志 ========== */
+.changelog {
+    margin-top: 12px;
+}
+
+.changelog-toggle {
+    font-size: 11px;
+    color: #c4a88c;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.changelog-toggle:hover {
+    color: #a08060;
+}
+
+.changelog-content {
+    display: none;
+    margin-top: 6px;
+}
+
+.changelog-content p {
+    font-size: 10px;
+    color: #c4a88c;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+}
+
+body.night-mode .changelog-toggle,
+body.night-mode .changelog-content p {
+    color: #9088a0;
+}
