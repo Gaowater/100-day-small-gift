@@ -1009,14 +1009,12 @@ body.night-mode .mood-empty {
     display: flex;
     align-items: center;
     gap: 3px;
-    flex-shrink: 0;
 }
 
 .mood-text {
     display: flex;
     flex-direction: column;
     line-height: 1.1;
-    white-space: nowrap;
 }
 
 .mood-text-right {
