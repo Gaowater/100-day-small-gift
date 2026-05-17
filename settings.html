@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>设置</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .settings-page {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+            min-height: 100vh;
+        }
+        .settings-page h2 {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 400;
+            color: #b8937a;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+        }
+        .settings-section {
+            margin-bottom: 32px;
+        }
+        .settings-section h3 {
+            font-size: 14px;
+            color: #8b7560;
+            margin-bottom: 14px;
+            letter-spacing: 2px;
+        }
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        .preset-btn {
+            padding: 16px 8px;
+            border-radius: 14px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: all 0.25s ease;
+            background: #fffdf9;
+            color: #8b7560;
+        }
+        .preset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(180,150,120,0.15);
+        }
+        .preset-btn.active {
+            border-color: #c49a6c;
+            box-shadow: 0 0 0 3px rgba(196,154,108,0.12);
+        }
+        .preset-dot {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+        }
+        .dot-warm { background: linear-gradient(135deg, #fef9f0, #fdf3e4); }
+        .dot-pink { background: linear-gradient(135deg, #fef7f5, #fdf0ed); }
+        .dot-blue { background: linear-gradient(135deg, #f5f8fb, #edf2f8); }
+        .dot-green { background: linear-gradient(135deg, #f6faf5, #eef5ec); }
+        .dot-purple { background: linear-gradient(135deg, #f9f7fc, #f2eef8); }
+        .dot-gray { background: linear-gradient(135deg, #f8f8f6, #f0f0ee); }
+
+        .back-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .back-link a {
+            font-size: 13px;
+            color: #c4a88c;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        .back-link a:hover { color: #a08060; }
+    </style>
+</head>
+<body>
+    <div class="settings-page">
+        <h2>白天主题预设</h2>
+        <div class="settings-section">
+            <h3>选择背景色调</h3>
+            <div class="preset-grid" id="presetGrid">
+                <div class="preset-btn active" data-theme="warm">
+                    <div class="preset-dot dot-warm"></div>
+                    暖米
+                </div>
+                <div class="preset-btn" data-theme="pink">
+                    <div class="preset-dot dot-pink"></div>
+                    淡粉
+                </div>
+                <div class="preset-btn" data-theme="blue">
+                    <div class="preset-dot dot-blue"></div>
+                    淡蓝
+                </div>
+                <div class="preset-btn" data-theme="green">
+                    <div class="preset-dot dot-green"></div>
+                    淡绿
+                </div>
+                <div class="preset-btn" data-theme="purple">
+                    <div class="preset-dot dot-purple"></div>
+                    淡紫
+                </div>
+                <div class="preset-btn" data-theme="gray">
+                    <div class="preset-dot dot-gray"></div>
+                    淡灰
+                </div>
+            </div>
+        </div>
+        <div class="back-link">
+            <a href="index.html">← 返回主页</a>
+        </div>
+    </div>
+
+    <script>
+        const themeMap = {
+            warm: {
+                '--bg-start': '#fef9f0',
+                '--bg-mid': '#fdf3e4',
+                '--bg-end': '#fef9f0',
+                '--card-bg': '#fffdf9',
+                '--text-main': '#5c4b3a',
+                '--text-sub': '#8b7560',
+                '--text-light': '#b8937a',
+                '--text-hint': '#d4b896'
+            },
+            pink: {
+                '--bg-start': '#fef7f5',
+                '--bg-mid': '#fdf0ed',
+                '--bg-end': '#fef7f5',
+                '--card-bg': '#fffaf8',
+                '--text-main': '#6b4a4a',
+                '--text-sub': '#8b6060',
+                '--text-light': '#b08080',
+                '--text-hint': '#d4a0a0'
+            },
+            blue: {
+                '--bg-start': '#f5f8fb',
+                '--bg-mid': '#edf2f8',
+                '--bg-end': '#f5f8fb',
+                '--card-bg': '#f8fafc',
+                '--text-main': '#4a5568',
+                '--text-sub': '#607080',
+                '--text-light': '#8090a0',
+                '--text-hint': '#a0b0c0'
+            },
+            green: {
+                '--bg-start': '#f6faf5',
+                '--bg-mid': '#eef5ec',
+                '--bg-end': '#f6faf5',
+                '--card-bg': '#f8fbf7',
+                '--text-main': '#4a5c4a',
+                '--text-sub': '#607860',
+                '--text-light': '#809880',
+                '--text-hint': '#a0b8a0'
+            },
+            purple: {
+                '--bg-start': '#f9f7fc',
+                '--bg-mid': '#f2eef8',
+                '--bg-end': '#f9f7fc',
+                '--card-bg': '#faf8fc',
+                '--text-main': '#5c4a6b',
+                '--text-sub': '#706080',
+                '--text-light': '#9080a0',
+                '--text-hint': '#b0a0c0'
+            },
+            gray: {
+                '--bg-start': '#f8f8f6',
+                '--bg-mid': '#f0f0ee',
+                '--bg-end': '#f8f8f6',
+                '--card-bg': '#fafaf9',
+                '--text-main': '#5c5c5c',
+                '--text-sub': '#707070',
+                '--text-light': '#909090',
+                '--text-hint': '#b0b0b0'
+            }
+        };
+
+        const presetGrid = document.getElementById('presetGrid');
+        let currentTheme = localStorage.getItem('dayTheme') || 'warm';
+
+        // 高亮当前
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            if (btn.getAttribute('data-theme') === currentTheme) {
+                btn.classList.add('active');
+            }
+        });
+
+        presetGrid.addEventListener('click', function(e) {
+            const btn = e.target.closest('.preset-btn');
+            if (!btn) return;
+            const theme = btn.getAttribute('data-theme');
+            
+            // 切换高亮
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // 保存
+            localStorage.setItem('dayTheme', theme);
+            
+            // 通知主页刷新
+            alert('主题已切换！返回主页查看效果。');
+        });
+    </script>
+</body>
+</html>
