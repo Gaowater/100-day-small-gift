@@ -1003,33 +1003,3 @@ body.night-mode .mood-empty {
 .mood-item .mood-sad { width: 20px; height: 18px; }
 .mood-item .mood-excited { width: 20px; height: 20px; }
 .mood-item .mood-angry { width: 18px; height: 
-
-/* ========== 心情标签 ========== */
-.mood-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-}
-
-.mood-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.1;
-}
-
-.mood-text-right {
-    text-align: right;
-}
-
-.mood-line {
-    font-size: 6px;
-    color: #b8937a !important;
-    letter-spacing: 0.1px;
-    opacity: 0.8;
-    white-space: nowrap;
-    transition: color 0.8s ease;
-}
-                        
-body.night-mode .mood-line {
-    color: #7068a0;
-}
