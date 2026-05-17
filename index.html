@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>100天</title>
     <link rel="stylesheet" href="style.css">
+        <script>
+        (function() {
+            const theme = localStorage.getItem('dayTheme') || 'warm';
+            const map = {
+                warm: { start:'#fef9f0', mid:'#fdf3e4', end:'#fef9f0', card:'#fffdf9', main:'#5c4b3a', sub:'#8b7560', light:'#b8937a', hint:'#d4b896' },
+                pink: { start:'#fef7f5', mid:'#fdf0ed', end:'#fef7f5', card:'#fffaf8', main:'#6b4a4a', sub:'#8b6060', light:'#b08080', hint:'#d4a0a0' },
+                blue: { start:'#f5f8fb', mid:'#edf2f8', end:'#f5f8fb', card:'#f8fafc', main:'#4a5568', sub:'#607080', light:'#8090a0', hint:'#a0b0c0' },
+                green: { start:'#f6faf5', mid:'#eef5ec', end:'#f6faf5', card:'#f8fbf7', main:'#4a5c4a', sub:'#607860', light:'#809880', hint:'#a0b8a0' },
+                purple: { start:'#f9f7fc', mid:'#f2eef8', end:'#f9f7fc', card:'#faf8fc', main:'#5c4a6b', sub:'#706080', light:'#9080a0', hint:'#b0a0c0' },
+                gray: { start:'#f8f8f6', mid:'#f0f0ee', end:'#f8f8f6', card:'#fafaf9', main:'#5c5c5c', sub:'#707070', light:'#909090', hint:'#b0b0b0' }
+            };
+            const c = map[theme];
+            document.documentElement.style.setProperty('--bg-start', c.start);
+            document.documentElement.style.setProperty('--bg-mid', c.mid);
+            document.documentElement.style.setProperty('--bg-end', c.end);
+            document.documentElement.style.setProperty('--card-bg', c.card);
+            document.documentElement.style.setProperty('--text-main', c.main);
+            document.documentElement.style.setProperty('--text-sub', c.sub);
+            document.documentElement.style.setProperty('--text-light', c.light);
+            document.documentElement.style.setProperty('--text-hint', c.hint);
+        })();
+    </script>
 </head>
 <body>
     <!-- 背景音乐 -->
