@@ -856,18 +856,18 @@ body.night-mode .footer-quote {
 
 /* ====== 6个心情CSS图标 ====== */
 
-/* 开心 - 小太阳 */
+/* 开心 - 小光点 */
 .mood-happy {
-    background: #f0b34b;
-    box-shadow: 0 0 5px 2px rgba(240, 179, 75, 0.4);
     position: relative;
-}
-.mood-happy::before {
-    content: '';
-    position: absolute;
-    top: -2px; left: 50%; transform: translateX(-50%);
-    width: 1.5px; height: 3px; background: #f0b34b; border-radius: 1px;
-    box-shadow: 0 -4px 0 #f0b34b, 2px -3px 0 #f0b34b, -2px -3px 0 #f0b34b, 3px 0 0 #f0b34b, -3px 0 0 #f0b34b, 2px 3px 0 #f0b34b, -2px 3px 0 #f0b34b, 0 4px 0 #f0b34b;
+    background: #f0b34b;
+    border-radius: 50%;
+    box-shadow: 
+        0 0 6px 3px rgba(240, 179, 75, 0.5),
+        -4px -2px 0 0 rgba(240, 179, 75, 0.6),
+        4px -2px 0 0 rgba(240, 179, 75, 0.6),
+        -2px 4px 0 0 rgba(240, 179, 75, 0.4),
+        2px 4px 0 0 rgba(240, 179, 75, 0.4),
+        0 -5px 0 0 rgba(240, 179, 75, 0.3);
 }
 
 /* 难过 - 小水滴 */
@@ -906,13 +906,39 @@ body.night-mode .footer-quote {
     box-shadow: 0 0 3px 1px rgba(232, 201, 122, 0.6);
 }
 
-/* 愤怒 - 小闪电 */
+/* 愤怒 - 小火焰 */
 .mood-angry {
-    background: #e07050;
-    clip-path: polygon(50% 0%, 30% 40%, 45% 40%, 20% 100%, 70% 50%, 50% 50%, 75% 10%);
-    box-shadow: 0 0 4px 1px rgba(224, 112, 80, 0.4);
+    position: relative;
+    background: transparent;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 14px solid #e07050;
+    margin: 2px auto 0;
 }
-
+.mood-angry::before {
+    content: '';
+    position: absolute;
+    top: 7px;
+    left: -4px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 8px solid #f09060;
+}
+.mood-angry::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: -1px;
+    width: 3px;
+    height: 3px;
+    background: #ffd080;
+    border-radius: 50%;
+    box-shadow: 0 0 3px 1px rgba(255, 208, 128, 0.6);
+}
 /* 无聊 - 空心圆 */
 .mood-bored {
     background: transparent;
