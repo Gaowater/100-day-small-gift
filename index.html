@@ -262,6 +262,8 @@
             });
         });
                 // ========== 更新日志展开/收起 ==========
+                // 强制初始隐藏
+        document.getElementById('changelogContent').style.display = 'none';
         document.getElementById('changelogToggle').addEventListener('click', function() {
             const content = document.getElementById('changelogContent');
             if (content.style.display === 'block') {
