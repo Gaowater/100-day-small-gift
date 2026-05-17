@@ -40,3 +40,6 @@ const cardsData = [
         text: "终于！100 天了！2026.5.17！好快啊…似乎有点单调，再加一个字呢？好快乐啊！期待下一个 100 天！"
     }
 ];
+
+// 你的心情预设（可选：happy / sad / excited / angry / bored / relaxed）
+const myMood = "happy";
