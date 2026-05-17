@@ -812,13 +812,13 @@ body.night-mode .footer-quote {
 /* ========== 顶部心情图标 ========== */
 .header-moods {
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 18px;
     position: relative;
     z-index: 1;
 }
-
 .mood-badge {
     width: 32px;
     height: 32px;
