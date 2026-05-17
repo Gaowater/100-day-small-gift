@@ -1003,3 +1003,22 @@ body.night-mode .mood-empty {
 .mood-item .mood-sad { width: 20px; height: 18px; }
 .mood-item .mood-excited { width: 20px; height: 20px; }
 .mood-item .mood-angry { width: 18px; height: 
+
+                        /* ========== 心情标签 ========== */
+.mood-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.mood-label {
+    font-size: 9px;
+    color: #b8937a;
+    letter-spacing: 0.5px;
+    transition: color 0.8s ease;
+}
+
+body.night-mode .mood-label {
+    color: #9088a0;
+}
