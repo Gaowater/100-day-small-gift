@@ -1011,29 +1011,25 @@ body.night-mode .mood-empty {
     gap: 3px;
 }
 
-.mood-text-left,
-.mood-text-right {
+.mood-text {
     display: flex;
     flex-direction: column;
-    line-height: 1;
-}
-
-.mood-text-left {
-    align-items: flex-start;
+    line-height: 1.1;
 }
 
 .mood-text-right {
-    align-items: flex-end;
+    text-align: right;
 }
 
-.mood-label-line {
+.mood-line {
     font-size: 6px;
     color: #d4c0a8;
     letter-spacing: 0.1px;
     opacity: 0.6;
+    white-space: nowrap;
     transition: color 0.8s ease;
 }
 
-body.night-mode .mood-label-line {
+body.night-mode .mood-line {
     color: #7068a0;
 }
