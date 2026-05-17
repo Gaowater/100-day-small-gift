@@ -99,9 +99,17 @@
 
         <div class="cards" id="cardsContainer"></div>
 
-        <footer class="footer">
+               <footer class="footer">
             <p id="todayDate"></p>
             <p class="footer-quote" id="footerQuote"></p>
+            <div class="changelog">
+                <p class="changelog-toggle" id="changelogToggle">📋 更新日志</p>
+                <div class="changelog-content" id="changelogContent">
+                    <p>v1.2 · 2026.05.17 — 新增心情图标</p>
+                    <p>v1.1 · 2026.05.16 — 新增昼夜切换</p>
+                    <p>v1.0 · 2026.05.15 — 首次上线</p>
+                </div>
+            </div>
         </footer>
     </div>
 
@@ -253,6 +261,15 @@
                 moodOverlay.style.display = 'none';
                 document.body.style.overflow = '';
             });
+        });
+                // ========== 更新日志展开/收起 ==========
+        document.getElementById('changelogToggle').addEventListener('click', function() {
+            const content = document.getElementById('changelogContent');
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+            } else {
+                content.style.display = 'block';
+            }
         });
     </script>
 </body>
