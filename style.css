@@ -1023,13 +1023,13 @@ body.night-mode .mood-empty {
 
 .mood-line {
     font-size: 6px;
-    color: #d4c0a8;
+    color: #b8937a !important;
     letter-spacing: 0.1px;
-    opacity: 0.6;
+    opacity: 0.8;
     white-space: nowrap;
     transition: color 0.8s ease;
 }
-
+                        
 body.night-mode .mood-line {
     color: #7068a0;
 }
