@@ -1005,20 +1005,22 @@ body.night-mode .mood-empty {
 .mood-item .mood-angry { width: 18px; height: 
 
                         /* ========== 心情标签 ========== */
+/* ========== 心情标签 ========== */
 .mood-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
 }
 
 .mood-label {
-    font-size: 9px;
-    color: #b8937a;
-    letter-spacing: 0.5px;
+    font-size: 8px;
+    color: #d4c0a8;
+    letter-spacing: 0.3px;
+    text-align: center;
     transition: color 0.8s ease;
 }
 
 body.night-mode .mood-label {
-    color: #9088a0;
+    color: #7068a0;
 }
