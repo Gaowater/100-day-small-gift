@@ -78,10 +78,13 @@
         <!-- 顶部 -->
         <header class="header" id="headerArea">
             <div class="stars-container" id="starsContainer"></div>
-            <div class="header-moods">
+                        <div class="header-moods">
                 <!-- 你的心情 -->
-                <div class="mood-badge my-mood" id="myMoodBadge" title="我的心情">
-                    <div class="mood-badge-icon" id="myMoodIcon"></div>
+                <div class="mood-wrapper">
+                    <span class="mood-label">MH's mood</span>
+                    <div class="mood-badge my-mood" id="myMoodBadge" title="我的心情">
+                        <div class="mood-badge-icon" id="myMoodIcon"></div>
+                    </div>
                 </div>
                 <!-- 天数 -->
                 <div class="days-badge">
@@ -89,8 +92,11 @@
                     <span class="days-label">天</span>
                 </div>
                 <!-- 她的心情 -->
-                <div class="mood-badge her-mood" id="herMoodBadge" title="点击选择心情">
-                    <div class="mood-badge-icon" id="herMoodIcon"></div>
+                <div class="mood-wrapper">
+                    <span class="mood-label">YL's mood</span>
+                    <div class="mood-badge her-mood" id="herMoodBadge" title="点击选择心情">
+                        <div class="mood-badge-icon" id="herMoodIcon"></div>
+                    </div>
                 </div>
             </div>
             <p class="subtitle">始于 2026.02.07</p>
