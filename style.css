@@ -953,6 +953,24 @@ body.night-mode .footer-quote {
     box-shadow: 0 0 4px 1px rgba(140, 184, 138, 0.4);
 }
 
+/* 疲惫 - 低垂椭圆 */
+.mood-tired {
+    background: #c0a890;
+    border-radius: 50% / 35%;
+    box-shadow: 0 0 4px 1px rgba(192, 168, 144, 0.4);
+}
+
+/* 迷糊 - 螺旋纹 */
+.mood-dizzy {
+    background: transparent;
+    border: 2px solid #c0b0d0;
+    border-radius: 50%;
+    box-shadow: 
+        0 0 4px 1px rgba(192, 176, 208, 0.4),
+        inset 0 0 0 2px #fffdf9,
+        inset 0 0 0 4px #c0b0d0;
+}
+
 /* ====== 夜景心情图标适配 ====== */
 body.night-mode .mood-badge {
     background: #2a2a4a;
@@ -979,7 +997,7 @@ body.night-mode .mood-empty {
     background: #fffdf9;
     border-radius: 20px;
     padding: 24px 20px 20px;
-    width: 260px;
+    width: 280px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     text-align: center;
 }
