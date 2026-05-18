@@ -1085,8 +1085,8 @@ body.night-mode .changelog-content p {
 /* ========== 设置图标 ========== */
 .settings-link {
     position: fixed;
-    top: 20px;
-    left: 20px;
+    top: 24px;
+    left: 24px;
     z-index: 998;
     font-size: 18px;
     color: #d4c0a8;
@@ -1094,7 +1094,7 @@ body.night-mode .changelog-content p {
     letter-spacing: 1px;
     transition: color 0.3s ease;
 }
-
+                        
 .settings-link:hover {
     color: #b8937a;
 }
