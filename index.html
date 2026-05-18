@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>100天</title>
     <link rel="stylesheet" href="style.css">
-        <script>
+    <script>
         (function() {
             const theme = localStorage.getItem('dayTheme') || 'warm';
             const map = {
@@ -89,17 +89,16 @@
                     <span>无聊</span>
                 </div>
                 <div class="mood-item" data-mood="relaxed">
-    <div class="mood-icon mood-relaxed"></div>
-    <span>悠闲</span>
-</div>
-<div class="mood-item" data-mood="tired">
-    <div class="mood-icon mood-tired"></div>
-    <span>疲惫</span>
-</div>
-<div class="mood-item" data-mood="dizzy">
-    <div class="mood-icon mood-dizzy"></div>
-    <span>迷糊</span>
-</div>
+                    <div class="mood-icon mood-relaxed"></div>
+                    <span>悠闲</span>
+                </div>
+                <div class="mood-item" data-mood="tired">
+                    <div class="mood-icon mood-tired"></div>
+                    <span>疲惫</span>
+                </div>
+                <div class="mood-item" data-mood="dizzy">
+                    <div class="mood-icon mood-dizzy"></div>
+                    <span>迷糊</span>
                 </div>
             </div>
         </div>
@@ -109,7 +108,7 @@
         <!-- 顶部 -->
         <header class="header" id="headerArea">
             <div class="stars-container" id="starsContainer"></div>
-                               <div class="header-moods">
+            <div class="header-moods">
                 <!-- 你的心情 -->
                 <div class="mood-badge my-mood" id="myMoodBadge" title="我的心情">
                     <div class="mood-badge-icon" id="myMoodIcon"></div>
@@ -130,17 +129,18 @@
 
         <div class="cards" id="cardsContainer"></div>
 
-               <footer class="footer">
+        <footer class="footer">
             <p id="todayDate"></p>
             <p class="footer-quote" id="footerQuote"></p>
             <div class="changelog">
                 <p class="changelog-toggle" id="changelogToggle">📋 更新日志</p>
                 <div class="changelog-content" id="changelogContent">
+                    <p>v1.2 · 2026.05.18 — 新增疲惫、迷糊心情图标</p>
                     <p>v1.1 · 2026.05.17 — 新增心情图标，更新日志，设置（可更改主题色），句子种类随周期变化</p>
                     <p>v1.0 · 2026.05.16 — 首次上线</p>
                 </div>
             </div>
-                        <p style="text-align:center;margin-top:10px;">
+            <p style="text-align:center;margin-top:10px;">
                 <a href="settings.html" style="font-size:10px;color:#d4c0a8;text-decoration:none;letter-spacing:1px;">⚙️</a>
             </p>
         </footer>
@@ -258,15 +258,16 @@
 
         // ========== 心情系统 ==========
         const moodMap = {
-    happy: 'mood-happy',
-    sad: 'mood-sad',
-    excited: 'mood-excited',
-    angry: 'mood-angry',
-    bored: 'mood-bored',
-    relaxed: 'mood-relaxed',
-    tired: 'mood-tired',
-    dizzy: 'mood-dizzy'
-};
+            happy: 'mood-happy',
+            sad: 'mood-sad',
+            excited: 'mood-excited',
+            angry: 'mood-angry',
+            bored: 'mood-bored',
+            relaxed: 'mood-relaxed',
+            tired: 'mood-tired',
+            dizzy: 'mood-dizzy'
+        };
+
         // 设置我的心情
         const myMoodIcon = document.getElementById('myMoodIcon');
         myMoodIcon.className = 'mood-badge-icon ' + (moodMap[myMood] || 'mood-empty');
@@ -296,8 +297,8 @@
                 document.body.style.overflow = '';
             });
         });
-                // ========== 更新日志展开/收起 ==========
-                // 强制初始隐藏
+
+        // ========== 更新日志展开/收起 ==========
         document.getElementById('changelogContent').style.display = 'none';
         document.getElementById('changelogToggle').addEventListener('click', function() {
             const content = document.getElementById('changelogContent');
