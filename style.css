@@ -1090,7 +1090,8 @@ body.night-mode .changelog-content p {
     z-index: 998;
     font-size: 18px;
     color: #d4c0a8;
-    text-decoration: none;
+    text-decoration: none !important;
+    border-bottom: none !important;
     letter-spacing: 1px;
     transition: color 0.3s ease;
 }
