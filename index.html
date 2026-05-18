@@ -91,6 +91,14 @@
                 <div class="mood-item" data-mood="relaxed">
                     <div class="mood-icon mood-relaxed"></div>
                     <span>悠闲</span>
+                    <div class="mood-item" data-mood="tired">
+    <div class="mood-icon mood-tired"></div>
+    <span>疲惫</span>
+</div>
+<div class="mood-item" data-mood="dizzy">
+    <div class="mood-icon mood-dizzy"></div>
+    <span>迷糊</span>
+</div>
                 </div>
             </div>
         </div>
@@ -249,14 +257,15 @@
 
         // ========== 心情系统 ==========
         const moodMap = {
-            happy: 'mood-happy',
-            sad: 'mood-sad',
-            excited: 'mood-excited',
-            angry: 'mood-angry',
-            bored: 'mood-bored',
-            relaxed: 'mood-relaxed'
-        };
-
+    happy: 'mood-happy',
+    sad: 'mood-sad',
+    excited: 'mood-excited',
+    angry: 'mood-angry',
+    bored: 'mood-bored',
+    relaxed: 'mood-relaxed',
+    tired: 'mood-tired',
+    dizzy: 'mood-dizzy'
+    };
         // 设置我的心情
         const myMoodIcon = document.getElementById('myMoodIcon');
         myMoodIcon.className = 'mood-badge-icon ' + (moodMap[myMood] || 'mood-empty');
