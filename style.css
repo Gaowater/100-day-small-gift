@@ -1083,19 +1083,20 @@ body.night-mode .changelog-content p {
 }
 
 /* ========== 设置图标 ========== */
+/* ========== 设置图标 ========== */
 .settings-link {
     position: fixed;
-    top: 24px;
-    left: 24px;
+    top: 32px;
+    left: 28px;
     z-index: 998;
     font-size: 18px;
     color: #d4c0a8;
-    text-decoration: none !important;
-    border-bottom: none !important;
+    text-decoration: none;
+    border: none;
     letter-spacing: 1px;
     transition: color 0.3s ease;
 }
-                        
+
 .settings-link:hover {
     color: #b8937a;
 }
