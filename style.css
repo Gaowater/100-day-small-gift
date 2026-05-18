@@ -1081,3 +1081,28 @@ body.night-mode .changelog-toggle,
 body.night-mode .changelog-content p {
     color: #9088a0;
 }
+
+/* ========== 设置图标 ========== */
+.settings-link {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 998;
+    font-size: 18px;
+    color: #d4c0a8;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.settings-link:hover {
+    color: #b8937a;
+}
+
+body.night-mode .settings-link {
+    color: #9088a0;
+}
+
+body.night-mode .settings-link:hover {
+    color: #b0a8c0;
+}
