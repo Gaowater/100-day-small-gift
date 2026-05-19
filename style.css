@@ -1097,16 +1097,6 @@ body.night-mode .changelog-content p {
     letter-spacing: 1px;
     transition: color 0.3s ease;
 }
-
-.settings-link:hover {
-    color: #b8937a;
-}
-
-body.night-mode .settings-link {
-    color: #9088a0;
-}
-
-body.night-mode .settings-link:hover {
-    color: #b0a8c0;
-}
-
+.settings-link:hover { color: #b8937a; }
+body.night-mode .settings-link { color: #9088a0; }
+body.night-mode .settings-link:hover { color: #b0a8c0; }
