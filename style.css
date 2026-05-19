@@ -1088,7 +1088,7 @@ body.night-mode .changelog-content p {
 .settings-link {
     position: absolute;
     top: 24px;
-    left: 28px;
+    left: 18px;
     z-index: 998;
     font-size: 18px;
     color: #d4c0a8;
