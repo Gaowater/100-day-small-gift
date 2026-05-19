@@ -1086,10 +1086,10 @@ body.night-mode .changelog-content p {
 
 /* ========== 设置图标 ========== */
 .settings-link {
-    position: fixed;
-    top: 32px;
-    left: 28px;
-    z-index: 998;
+    position: fixed !important;
+    top: 32px !important;
+    left: 28px !important;
+    z-index: 998 !important;
     font-size: 18px;
     color: #d4c0a8;
     text-decoration: none;
