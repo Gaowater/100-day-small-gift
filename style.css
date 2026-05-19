@@ -750,8 +750,6 @@ body.night-mode .album-video {
     90% { transform: translateX(0); }
 }
 
-}
-
 /* 夜景隐藏光斑 */
 body.night-mode .glow-spot {
     opacity: 0 !important;
@@ -1046,7 +1044,11 @@ body.night-mode .mood-empty {
 .mood-item .mood-happy { width: 22px; height: 22px; }
 .mood-item .mood-sad { width: 20px; height: 18px; }
 .mood-item .mood-excited { width: 20px; height: 20px; }
-.mood-item .mood-angry { width: 18px; height: 
+.mood-item .mood-angry { width: 18px; height: 22px; }
+.mood-item .mood-bored { width: 20px; height: 20px; }
+.mood-item .mood-relaxed { width: 20px; height: 18px; }
+.mood-item .mood-tired { width: 20px; height: 16px; }
+.mood-item .mood-dizzy { width: 20px; height: 20px; }
 
                         /* ========== 更新日志 ========== */
 .changelog {
@@ -1082,7 +1084,6 @@ body.night-mode .changelog-content p {
     color: #9088a0;
 }
 
-/* ========== 设置图标 ========== */
 /* ========== 设置图标 ========== */
 .settings-link {
     position: fixed;
