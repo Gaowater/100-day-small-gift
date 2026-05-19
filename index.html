@@ -26,6 +26,120 @@
             document.documentElement.style.setProperty('--text-light', c.light);
             document.documentElement.style.setProperty('--text-hint', c.hint);
         })();
+                // ========== 隐藏彩蛋 ==========
+        const SECRET_CODE = '100days';
+        const SECRET_PASSWORD = '20080503';
+        const SECRET_TEXT = `这里写上你的隐藏文案。
+可以多行。
+支持换行。
+她会一个字一个字看到。`;
+
+        let codeBuffer = '';
+        let codeTimer = null;
+
+        // 电脑端：键盘监听暗号
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            codeBuffer += e.key;
+            if (codeBuffer.length > SECRET_CODE.length) {
+                codeBuffer = codeBuffer.slice(-SECRET_CODE.length);
+            }
+            if (codeBuffer === SECRET_CODE) {
+                codeBuffer = '';
+                showPasswordOverlay();
+            }
+            clearTimeout(codeTimer);
+            codeTimer = setTimeout(() => { codeBuffer = ''; }, 2000);
+        });
+
+        // 手机端：长按100天数字10秒
+        let pressTimer = null;
+        const daysNumber = document.getElementById('daysCount');
+        daysNumber.addEventListener('touchstart', function(e) {
+            pressTimer = setTimeout(() => {
+                showPasswordOverlay();
+            }, 10000);
+        });
+        daysNumber.addEventListener('touchend', function() {
+            clearTimeout(pressTimer);
+        });
+        daysNumber.addEventListener('touchmove', function() {
+            clearTimeout(pressTimer);
+        });
+
+        // 显示密码弹窗
+        const secretPasswordOverlay = document.getElementById('secretPasswordOverlay');
+        const secretPasswordInput = document.getElementById('secretPasswordInput');
+        const secretPasswordError = document.getElementById('secretPasswordError');
+
+        function showPasswordOverlay() {
+            secretPasswordOverlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            secretPasswordInput.value = '';
+            secretPasswordError.textContent = '';
+            setTimeout(() => secretPasswordInput.focus(), 100);
+        }
+
+        document.getElementById('secretPasswordClose').addEventListener('click', function() {
+            secretPasswordOverlay.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        secretPasswordOverlay.addEventListener('click', function(e) {
+            if (e.target === secretPasswordOverlay) {
+                secretPasswordOverlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.getElementById('secretPasswordBtn').addEventListener('click', function() {
+            if (secretPasswordInput.value === SECRET_PASSWORD) {
+                secretPasswordOverlay.style.display = 'none';
+                document.body.style.overflow = '';
+                openSecretPage();
+            } else {
+                secretPasswordError.textContent = '密码错误';
+                secretPasswordInput.value = '';
+            }
+        });
+
+        secretPasswordInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('secretPasswordBtn').click();
+            }
+        });
+
+        // 打字机效果
+        const secretPage = document.getElementById('secretPage');
+        const typewriter = document.getElementById('typewriter');
+
+        function openSecretPage() {
+            secretPage.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            typewriter.textContent = '';
+            let charIndex = 0;
+            const chars = [...SECRET_TEXT];
+            function typeNext() {
+                if (charIndex < chars.length) {
+                    typewriter.textContent += chars[charIndex];
+                    charIndex++;
+                    setTimeout(typeNext, 60 + Math.random() * 40);
+                }
+            }
+            typeNext();
+        }
+
+        document.getElementById('secretClose').addEventListener('click', function() {
+            secretPage.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        secretPage.addEventListener('click', function(e) {
+            if (e.target === secretPage) {
+                secretPage.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
     </script>
 </head>
 <body>
@@ -309,5 +423,21 @@
             }
         });
     </script>
+        <!-- 密码验证弹窗 -->
+    <div class="secret-password-overlay" id="secretPasswordOverlay">
+        <div class="secret-password-box">
+            <span class="secret-password-close" id="secretPasswordClose">&times;</span>
+            <p class="secret-password-title">🔒 输入密码</p>
+            <input type="password" class="secret-password-input" id="secretPasswordInput" placeholder="请输入密码" maxlength="10">
+            <button class="secret-password-btn" id="secretPasswordBtn">确认</button>
+            <p class="secret-password-error" id="secretPasswordError"></p>
+        </div>
+    </div>
+
+    <!-- 隐藏打字机页面 -->
+    <div class="secret-page" id="secretPage">
+        <span class="secret-close" id="secretClose">&times;</span>
+        <div class="typewriter" id="typewriter"></div>
+    </div>
 </body>
 </html>
