@@ -26,13 +26,7 @@
             document.documentElement.style.setProperty('--text-light', c.light);
             document.documentElement.style.setProperty('--text-hint', c.hint);
         })();
-                // ========== 隐藏彩蛋 ==========
-        const SECRET_CODE = '100days';
-        const SECRET_PASSWORD = '20080503';
-        const SECRET_TEXT = `我喜欢你`;
-        let codeBuffer = '';
-        let codeTimer = null;
-
+             
         // 电脑端：键盘监听暗号
         document.addEventListener('keydown', function(e) {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -409,6 +403,106 @@
         });
 
         // ========== 更新日志展开/收起 ==========
+                // ========== 隐藏彩蛋 ==========
+        const SECRET_CODE = '100days';
+        const SECRET_PASSWORD = '20080503';
+        const SECRET_TEXT = `我喜欢你`;
+        let codeBuffer = '';
+        let codeTimer = null;
+
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            codeBuffer += e.key;
+            if (codeBuffer.length > SECRET_CODE.length) {
+                codeBuffer = codeBuffer.slice(-SECRET_CODE.length);
+            }
+            if (codeBuffer === SECRET_CODE) {
+                codeBuffer = '';
+                showPasswordOverlay();
+            }
+            clearTimeout(codeTimer);
+            codeTimer = setTimeout(() => { codeBuffer = ''; }, 2000);
+        });
+
+        let pressTimer = null;
+        const daysNumberEl = document.getElementById('daysCount');
+        daysNumberEl.addEventListener('touchstart', function(e) {
+            pressTimer = setTimeout(() => { showPasswordOverlay(); }, 10000);
+        });
+        daysNumberEl.addEventListener('touchend', function() { clearTimeout(pressTimer); });
+        daysNumberEl.addEventListener('touchmove', function() { clearTimeout(pressTimer); });
+
+        const secretPasswordOverlay = document.getElementById('secretPasswordOverlay');
+        const secretPasswordInput = document.getElementById('secretPasswordInput');
+        const secretPasswordError = document.getElementById('secretPasswordError');
+
+        function showPasswordOverlay() {
+            secretPasswordOverlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            secretPasswordInput.value = '';
+            secretPasswordError.textContent = '';
+            setTimeout(() => secretPasswordInput.focus(), 100);
+        }
+
+        document.getElementById('secretPasswordClose').addEventListener('click', function() {
+            secretPasswordOverlay.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        secretPasswordOverlay.addEventListener('click', function(e) {
+            if (e.target === secretPasswordOverlay) {
+                secretPasswordOverlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
+
+        document.getElementById('secretPasswordBtn').addEventListener('click', function() {
+            if (secretPasswordInput.value === SECRET_PASSWORD) {
+                secretPasswordOverlay.style.display = 'none';
+                document.body.style.overflow = '';
+                openSecretPage();
+            } else {
+                secretPasswordError.textContent = '密码错误';
+                secretPasswordInput.value = '';
+            }
+        });
+
+        secretPasswordInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('secretPasswordBtn').click();
+            }
+        });
+
+        const secretPage = document.getElementById('secretPage');
+        const typewriter = document.getElementById('typewriter');
+
+        function openSecretPage() {
+            secretPage.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            typewriter.textContent = '';
+            let charIndex = 0;
+            const chars = [...SECRET_TEXT];
+            function typeNext() {
+                if (charIndex < chars.length) {
+                    typewriter.textContent += chars[charIndex];
+                    charIndex++;
+                    setTimeout(typeNext, 60 + Math.random() * 40);
+                }
+            }
+            typeNext();
+        }
+
+        document.getElementById('secretClose').addEventListener('click', function() {
+            secretPage.style.display = 'none';
+            document.body.style.overflow = '';
+        });
+
+        secretPage.addEventListener('click', function(e) {
+            if (e.target === secretPage) {
+                secretPage.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        });
         document.getElementById('changelogContent').style.display = 'none';
         document.getElementById('changelogToggle').addEventListener('click', function() {
             const content = document.getElementById('changelogContent');
