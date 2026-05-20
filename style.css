@@ -1100,3 +1100,62 @@ body.night-mode .changelog-content p {
 .settings-link:hover { color: #b8937a; }
 body.night-mode .settings-link { color: #9088a0; }
 body.night-mode .settings-link:hover { color: #b0a8c0; }
+
+/* ========== 心情气泡 ========== */
+.mood-bubble {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+    flex-shrink: 0;
+}
+.mood-bubble:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+/* ========== 小类面板 ========== */
+.sub-layer { text-align: center; }
+.sub-back {
+    font-size: 13px;
+    color: #b8937a;
+    cursor: pointer;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 14px;
+}
+.sub-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+.sub-item {
+    padding: 10px 6px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #5c4b3a;
+    transition: background 0.2s ease;
+}
+.sub-item:hover { background: rgba(180,150,120,0.1); }
+.sub-only {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #b8937a;
+    font-style: italic;
+    border: 1px dashed #d4b896;
+    margin-bottom: 4px;
+}
+
+/* 夜景 */
+body.night-mode .sub-item { color: #c8c0b8; }
+body.night-mode .sub-item:hover { background: rgba(200,190,180,0.1); }
+body.night-mode .sub-only { color: #9088a0; border-color: #9088a0; }
+body.night-mode .sub-back { color: #9088a0; }
