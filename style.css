@@ -1159,3 +1159,36 @@ body.night-mode .sub-item { color: #c8c0b8; }
 body.night-mode .sub-item:hover { background: rgba(200,190,180,0.1); }
 body.night-mode .sub-only { color: #9088a0; border-color: #9088a0; }
 body.night-mode .sub-back { color: #9088a0; }
+
+/* ========== 大类面板图标修复 ========== */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px 8px;
+}
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 8px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #5c4b3a;
+}
+.category-item:hover { background: rgba(180,150,120,0.1); }
+.category-item .mood-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+}
+.category-item .mood-happy { width: 22px; height: 22px; }
+.category-item .mood-sad { width: 20px; height: 18px; }
+.category-item .mood-excited { width: 20px; height: 20px; }
+.category-item .mood-angry { width: 18px; height: 24px; }
+.category-item .mood-bored { width: 20px; height: 20px; }
+.category-item .mood-relaxed { width: 20px; height: 18px; }
+.category-item .mood-dizzy { width: 20px; height: 20px; }
