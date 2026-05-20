@@ -3,208 +3,382 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>设置</title>
-    <link rel="stylesheet" href="style.css">
+    <title>设置 · 100天</title>
     <style>
-        .settings-page {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+            background: linear-gradient(180deg, #fef9f0 0%, #fdf3e4 30%, #fef9f0 100%);
+            min-height: 100vh;
+            color: #5c4b3a;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 40px 20px 60px;
-            min-height: 100vh;
         }
-        .settings-page h2 {
+
+        .back-link {
+            position: absolute;
+            top: 32px;
+            left: 28px;
+            z-index: 998;
+            font-size: 18px;
+            color: #d4c0a8;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        .back-link:hover { color: #b8937a; }
+
+        .page-title {
             text-align: center;
             font-size: 20px;
             font-weight: 400;
             color: #b8937a;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             margin-bottom: 40px;
+            padding-top: 20px;
         }
-        .settings-section {
+
+        .setting-group {
             margin-bottom: 32px;
         }
-        .settings-section h3 {
-            font-size: 14px;
-            color: #8b7560;
-            margin-bottom: 14px;
-            letter-spacing: 2px;
-        }
-        .preset-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-        .preset-btn {
-            padding: 16px 8px;
-            border-radius: 14px;
-            border: 2px solid transparent;
-            cursor: pointer;
-            text-align: center;
-            font-size: 12px;
-            letter-spacing: 1px;
-            transition: all 0.25s ease;
-            background: #fffdf9;
-            color: #8b7560;
-        }
-        .preset-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(180,150,120,0.15);
-        }
-        .preset-btn.active {
-            border-color: #c49a6c;
-            box-shadow: 0 0 0 3px rgba(196,154,108,0.12);
-        }
-        .preset-dot {
-            width: 28px; height: 28px;
-            border-radius: 50%;
-            margin: 0 auto 8px;
-        }
-        .dot-warm { background: linear-gradient(135deg, #fef9f0, #fdf3e4); }
-        .dot-pink { background: linear-gradient(135deg, #fef7f5, #fdf0ed); }
-        .dot-blue { background: linear-gradient(135deg, #f5f8fb, #edf2f8); }
-        .dot-green { background: linear-gradient(135deg, #f6faf5, #eef5ec); }
-        .dot-purple { background: linear-gradient(135deg, #f9f7fc, #f2eef8); }
-        .dot-gray { background: linear-gradient(135deg, #f8f8f6, #f0f0ee); }
 
-        .back-link {
-            text-align: center;
-            margin-top: 40px;
-        }
-        .back-link a {
-            font-size: 13px;
+        .setting-group-title {
+            font-size: 11px;
             color: #c4a88c;
-            text-decoration: none;
-            letter-spacing: 1px;
-            transition: color 0.3s;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            padding-left: 8px;
         }
-        .back-link a:hover { color: #a08060; }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fffdf9;
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            box-shadow: 0 1px 6px rgba(180, 150, 120, 0.06);
+        }
+        .setting-item:hover {
+            background: #fdf7ef;
+        }
+        .setting-item span:first-child {
+            font-size: 15px;
+            color: #5c4b3a;
+            letter-spacing: 1px;
+        }
+        .setting-arrow {
+            font-size: 18px;
+            color: #d4b896;
+        }
+
+        .theme-colors {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .color-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+        .color-dot:hover {
+            transform: scale(1.1);
+        }
+        .color-dot.active {
+            border-color: #8b7560;
+        }
+        .color-warm { background: #c49a6c; }
+        .color-pink { background: #c08080; }
+        .color-blue { background: #8098b0; }
+        .color-green { background: #80a080; }
+        .color-purple { background: #9880b0; }
+        .color-gray { background: #a0a0a0; }
+
+        .toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: rgba(60, 40, 25, 0.88);
+            color: #fef9f0;
+            padding: 12px 24px;
+            border-radius: 24px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            z-index: 3000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 24px 14px 40px;
+            }
+            .setting-item {
+                padding: 14px 16px;
+            }
+        }
+
+        /* ========== 创作者的话 - 密码弹窗 ========== */
+        .creator-password-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 4000;
+            align-items: center;
+            justify-content: center;
+        }
+        .creator-password-box {
+            background: #1a1a2e;
+            border: 1px solid #3a3a58;
+            border-radius: 16px;
+            padding: 32px 28px 24px;
+            width: 280px;
+            text-align: center;
+            position: relative;
+        }
+        .creator-password-close {
+            position: absolute;
+            top: 8px; right: 14px;
+            font-size: 26px;
+            color: #888;
+            cursor: pointer;
+        }
+        .creator-password-title {
+            font-size: 16px;
+            color: #c8c0b8;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        .creator-password-input {
+            width: 100%;
+            padding: 10px 14px;
+            background: #252540;
+            border: 1px solid #3a3a58;
+            border-radius: 8px;
+            color: #e0d8d0;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 16px;
+        }
+        .creator-password-input:focus { border-color: #9080b0; }
+        .creator-password-btn {
+            width: 100%;
+            padding: 10px;
+            background: #3a3a58;
+            border: none;
+            border-radius: 8px;
+            color: #d0c8c0;
+            font-size: 14px;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+        .creator-password-btn:hover { background: #4a4a6a; }
+        .creator-password-error {
+            font-size: 12px;
+            color: #c06060;
+            margin-top: 10px;
+            min-height: 18px;
+        }
+
+        /* ========== 创作者的话 - 内容页 ========== */
+        .creator-note-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 4001;
+            align-items: center;
+            justify-content: center;
+        }
+        .creator-note-box {
+            background: #1a1a2e;
+            border: 1px solid #3a3a58;
+            border-radius: 16px;
+            padding: 32px 24px;
+            width: 320px;
+            max-height: 70vh;
+            overflow-y: auto;
+            position: relative;
+            text-align: center;
+        }
+        .creator-note-close {
+            position: absolute;
+            top: 8px; right: 14px;
+            font-size: 26px;
+            color: #888;
+            cursor: pointer;
+        }
+        .creator-note-title {
+            font-size: 18px;
+            color: #e0d8c8;
+            letter-spacing: 3px;
+            margin-bottom: 18px;
+        }
+        .creator-note-content {
+            font-size: 15px;
+            color: #c8c0b0;
+            line-height: 2;
+            letter-spacing: 1px;
+            white-space: pre-wrap;
+        }
     </style>
 </head>
 <body>
-    <div class="settings-page">
-        <h2>白天主题预设</h2>
-        <div class="settings-section">
-            <h3>选择背景色调</h3>
-            <div class="preset-grid" id="presetGrid">
-                <div class="preset-btn active" data-theme="warm">
-                    <div class="preset-dot dot-warm"></div>
-                    暖米
-                </div>
-                <div class="preset-btn" data-theme="pink">
-                    <div class="preset-dot dot-pink"></div>
-                    淡粉
-                </div>
-                <div class="preset-btn" data-theme="blue">
-                    <div class="preset-dot dot-blue"></div>
-                    淡蓝
-                </div>
-                <div class="preset-btn" data-theme="green">
-                    <div class="preset-dot dot-green"></div>
-                    淡绿
-                </div>
-                <div class="preset-btn" data-theme="purple">
-                    <div class="preset-dot dot-purple"></div>
-                    淡紫
-                </div>
-                <div class="preset-btn" data-theme="gray">
-                    <div class="preset-dot dot-gray"></div>
-                    淡灰
-                </div>
+    <!-- 返回 -->
+    <a href="index.html" class="back-link" title="返回">← 返回</a>
+
+    <div class="container">
+        <h1 class="page-title">设 置</h1>
+
+        <!-- 主题色 -->
+        <div class="setting-group">
+            <p class="setting-group-title">主题色</p>
+            <div class="theme-colors" id="themeColors">
+                <div class="color-dot color-warm" data-theme="warm"></div>
+                <div class="color-dot color-pink" data-theme="pink"></div>
+                <div class="color-dot color-blue" data-theme="blue"></div>
+                <div class="color-dot color-green" data-theme="green"></div>
+                <div class="color-dot color-purple" data-theme="purple"></div>
+                <div class="color-dot color-gray" data-theme="gray"></div>
             </div>
         </div>
-        <div class="back-link">
-            <a href="index.html">← 返回主页</a>
+
+        <!-- 其他设置 -->
+        <div class="setting-group">
+            <p class="setting-group-title">其他</p>
+            <div class="setting-item" id="resetMood">
+                <span>重置她的心情</span>
+                <span class="setting-arrow">›</span>
+            </div>
+            <div class="setting-item" id="creatorNoteTrigger">
+                <span>创作者的话</span>
+                <span class="setting-arrow">›</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast 提示 -->
+    <div class="toast" id="toast"></div>
+
+    <!-- 创作者的话 - 密码弹窗 -->
+    <div class="creator-password-overlay" id="creatorPasswordOverlay">
+        <div class="creator-password-box">
+            <span class="creator-password-close" id="creatorPasswordClose">&times;</span>
+            <p class="creator-password-title">🔒 输入密码</p>
+            <input type="password" class="creator-password-input" id="creatorPasswordInput" placeholder="请输入密码">
+            <button class="creator-password-btn" id="creatorPasswordBtn">确认</button>
+            <p class="creator-password-error" id="creatorPasswordError"></p>
+        </div>
+    </div>
+
+    <!-- 创作者的话 - 内容页 -->
+    <div class="creator-note-overlay" id="creatorNoteOverlay">
+        <div class="creator-note-box">
+            <span class="creator-note-close" id="creatorNoteClose">&times;</span>
+            <p class="creator-note-title">创作者的话</p>
+            <div class="creator-note-content" id="creatorNoteContent">
+                我喜欢你
+            </div>
         </div>
     </div>
 
     <script>
-        const themeMap = {
-            warm: {
-                '--bg-start': '#fef9f0',
-                '--bg-mid': '#fdf3e4',
-                '--bg-end': '#fef9f0',
-                '--card-bg': '#fffdf9',
-                '--text-main': '#5c4b3a',
-                '--text-sub': '#8b7560',
-                '--text-light': '#b8937a',
-                '--text-hint': '#d4b896'
-            },
-            pink: {
-                '--bg-start': '#fef7f5',
-                '--bg-mid': '#fdf0ed',
-                '--bg-end': '#fef7f5',
-                '--card-bg': '#fffaf8',
-                '--text-main': '#6b4a4a',
-                '--text-sub': '#8b6060',
-                '--text-light': '#b08080',
-                '--text-hint': '#d4a0a0'
-            },
-            blue: {
-                '--bg-start': '#f5f8fb',
-                '--bg-mid': '#edf2f8',
-                '--bg-end': '#f5f8fb',
-                '--card-bg': '#f8fafc',
-                '--text-main': '#4a5568',
-                '--text-sub': '#607080',
-                '--text-light': '#8090a0',
-                '--text-hint': '#a0b0c0'
-            },
-            green: {
-                '--bg-start': '#f6faf5',
-                '--bg-mid': '#eef5ec',
-                '--bg-end': '#f6faf5',
-                '--card-bg': '#f8fbf7',
-                '--text-main': '#4a5c4a',
-                '--text-sub': '#607860',
-                '--text-light': '#809880',
-                '--text-hint': '#a0b8a0'
-            },
-            purple: {
-                '--bg-start': '#f9f7fc',
-                '--bg-mid': '#f2eef8',
-                '--bg-end': '#f9f7fc',
-                '--card-bg': '#faf8fc',
-                '--text-main': '#5c4a6b',
-                '--text-sub': '#706080',
-                '--text-light': '#9080a0',
-                '--text-hint': '#b0a0c0'
-            },
-            gray: {
-                '--bg-start': '#f8f8f6',
-                '--bg-mid': '#f0f0ee',
-                '--bg-end': '#f8f8f6',
-                '--card-bg': '#fafaf9',
-                '--text-main': '#5c5c5c',
-                '--text-sub': '#707070',
-                '--text-light': '#909090',
-                '--text-hint': '#b0b0b0'
+        // ========== Toast ==========
+        const toast = document.getElementById('toast');
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 1800);
+        }
+
+        // ========== 主题色 ==========
+        const currentTheme = localStorage.getItem('dayTheme') || 'warm';
+        document.querySelectorAll('.color-dot').forEach(dot => {
+            if (dot.getAttribute('data-theme') === currentTheme) {
+                dot.classList.add('active');
             }
-        };
+            dot.addEventListener('click', function() {
+                const theme = this.getAttribute('data-theme');
+                localStorage.setItem('dayTheme', theme);
+                document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+                this.classList.add('active');
+                showToast('主题已切换，刷新主页生效');
+            });
+        });
 
-        const presetGrid = document.getElementById('presetGrid');
-        let currentTheme = localStorage.getItem('dayTheme') || 'warm';
+        // ========== 重置她的心情 ==========
+        document.getElementById('resetMood').addEventListener('click', function() {
+            localStorage.removeItem('herMood');
+            showToast('心情已重置');
+        });
 
-        // 高亮当前
-        document.querySelectorAll('.preset-btn').forEach(btn => {
-            if (btn.getAttribute('data-theme') === currentTheme) {
-                btn.classList.add('active');
+        // ========== 创作者的话 ==========
+        const CREATOR_PASSWORD = 'I WANT TO STAY WITH YOU';
+
+        document.getElementById('creatorNoteTrigger').addEventListener('click', function() {
+            document.getElementById('creatorPasswordOverlay').style.display = 'flex';
+            document.getElementById('creatorPasswordInput').value = '';
+            document.getElementById('creatorPasswordError').textContent = '';
+            setTimeout(() => document.getElementById('creatorPasswordInput').focus(), 100);
+        });
+
+        document.getElementById('creatorPasswordClose').addEventListener('click', function() {
+            document.getElementById('creatorPasswordOverlay').style.display = 'none';
+        });
+
+        document.getElementById('creatorPasswordOverlay').addEventListener('click', function(e) {
+            if (e.target === this) this.style.display = 'none';
+        });
+
+        document.getElementById('creatorPasswordBtn').addEventListener('click', function() {
+            const input = document.getElementById('creatorPasswordInput');
+            if (input.value === CREATOR_PASSWORD) {
+                document.getElementById('creatorPasswordOverlay').style.display = 'none';
+                document.getElementById('creatorNoteOverlay').style.display = 'flex';
+            } else {
+                document.getElementById('creatorPasswordError').textContent = '密码错误';
+                input.value = '';
             }
         });
 
-        presetGrid.addEventListener('click', function(e) {
-            const btn = e.target.closest('.preset-btn');
-            if (!btn) return;
-            const theme = btn.getAttribute('data-theme');
-            
-            // 切换高亮
-            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            // 保存
-            localStorage.setItem('dayTheme', theme);
-            
-            // 通知主页刷新
-            alert('主题已切换！返回主页查看效果。');
+        document.getElementById('creatorPasswordInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') document.getElementById('creatorPasswordBtn').click();
+        });
+
+        document.getElementById('creatorNoteClose').addEventListener('click', function() {
+            document.getElementById('creatorNoteOverlay').style.display = 'none';
+        });
+
+        document.getElementById('creatorNoteOverlay').addEventListener('click', function(e) {
+            if (e.target === this) this.style.display = 'none';
         });
     </script>
 </body>
