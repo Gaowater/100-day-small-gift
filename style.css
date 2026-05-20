@@ -1181,14 +1181,45 @@ body.night-mode .sub-back { color: #9088a0; }
 }
 .category-item:hover { background: rgba(180,150,120,0.1); }
 .category-item .mood-icon {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
+    position: relative;
+    display: block;
 }
-.category-item .mood-happy { width: 22px; height: 22px; }
-.category-item .mood-sad { width: 20px; height: 18px; }
-.category-item .mood-excited { width: 20px; height: 20px; }
-.category-item .mood-angry { width: 18px; height: 24px; }
-.category-item .mood-bored { width: 20px; height: 20px; }
-.category-item .mood-relaxed { width: 20px; height: 18px; }
-.category-item .mood-dizzy { width: 20px; height: 20px; }
+
+/* 每个图标独立修复 */
+.category-item .mood-happy {
+    width: 22px; height: 22px;
+    background: #f0b34b;
+    border-radius: 50%;
+    box-shadow: 0 0 6px 3px rgba(240, 179, 75, 0.5), -4px -2px 0 0 rgba(240, 179, 75, 0.6), 4px -2px 0 0 rgba(240, 179, 75, 0.6);
+}
+.category-item .mood-sad {
+    width: 20px; height: 18px;
+    background: #7eb8da;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    box-shadow: 0 0 4px 1px rgba(126, 184, 218, 0.4);
+}
+.category-item .mood-angry {
+    width: 0; height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 14px solid #e07050;
+    position: relative;
+    margin-top: 4px;
+}
+.category-item .mood-bored {
+    width: 18px; height: 18px;
+    background: transparent;
+    border: 2px solid #b0a090;
+    border-radius: 50%;
+}
+.category-item .mood-relaxed {
+    width: 18px; height: 14px;
+    background: #8cb88a;
+    border-radius: 60% 5% 60% 5% / 50% 30% 70% 50%;
+}
+.category-item .mood-dizzy {
+    width: 18px; height: 18px;
+    background: transparent;
+    border: 2px solid #c0b0d0;
+    border-radius: 50%;
+}
