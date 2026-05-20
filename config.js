@@ -42,4 +42,5 @@ const cardsData = [
 ];
 
 // 你的心情预设（可选：happy / sad / excited / angry / bored / relaxed/ tired/ dizzy）
-const myMood = "bored";
+const myMoodCategory = "other";
+const myMoodSub = "淡然";
