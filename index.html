@@ -110,8 +110,13 @@
         <header class="header" id="headerArea">
             <div class="stars-container" id="starsContainer"></div>
             <div class="header-moods">
+                                <!-- 你的心情 -->
                 <div class="mood-badge my-mood" id="myMoodBadge" title="我的心情">
                     <div class="mood-badge-icon" id="myMoodIcon"></div>
+                </div>
+                <!-- 你的心情气泡 -->
+                <div class="mood-bubble my-mood" id="myMoodBubble" style="display:none;">
+                    <span id="myBubbleText"></span>
                 </div>
                 <div class="days-badge">
                     <span class="days-number" id="daysCount">100</span>
@@ -268,8 +273,28 @@
         const bubbleColors = { happy: '#f5e6c8', sad: '#d8e8f4', angry: '#f4d8d4', bored: '#e8e4de', relaxed: '#d8ecd4', other: '#e6ddf2' };
         const bubbleTextColors = { happy: '#8b6a3a', sad: '#4a6078', angry: '#8b4a4a', bored: '#6b6258', relaxed: '#4a6840', other: '#5c4a70' };
 
-        const myMoodIcon = document.getElementById('myMoodIcon');
-        myMoodIcon.className = 'mood-badge-icon ' + (moodMap[myMood] || 'mood-empty');
+       const myMoodIcon = document.getElementById('myMoodIcon');
+const myMoodBubble = document.getElementById('myMoodBubble');
+const myBubbleText = document.getElementById('myBubbleText');
+
+if (typeof myMoodSub !== 'undefined' && myMoodSub && typeof myMoodCategory !== 'undefined' && moodMap[myMoodCategory]) {
+    // 小类 → 气泡
+    myMoodIcon.style.display = 'none';
+    myMoodBubble.style.display = 'inline-flex';
+    myMoodBubble.style.background = bubbleColors[myMoodCategory];
+    myMoodBubble.style.color = bubbleTextColors[myMoodCategory];
+    myBubbleText.textContent = myMoodSub;
+    myMoodBubble.className = 'mood-bubble ' + myMoodCategory;
+} else if (typeof myMood !== 'undefined' && moodMap[myMood]) {
+    // 只选大类 → 纯图标
+    myMoodIcon.style.display = 'block';
+    myMoodBubble.style.display = 'none';
+    myMoodIcon.className = 'mood-badge-icon ' + moodMap[myMood];
+} else {
+    myMoodIcon.style.display = 'block';
+    myMoodBubble.style.display = 'none';
+    myMoodIcon.className = 'mood-badge-icon mood-empty';
+}
 
         const herMoodIcon = document.getElementById('herMoodIcon');
         const herMoodBadge = document.getElementById('herMoodBadge');
