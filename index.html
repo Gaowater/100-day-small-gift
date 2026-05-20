@@ -68,40 +68,41 @@
 
     <!-- 心情选择弹窗 -->
     <div class="mood-overlay" id="moodOverlay">
-        <div class="mood-panel" id="moodPanel">
-            <div id="categoryLayer">
-                <p class="mood-title">选择你的心情</p>
-                <div class="category-grid">
-                    <div class="category-item" data-category="happy">
-                        <div class="mood-icon mood-happy"></div>
-                        <span>开心</span>
-                    </div>
-                    <div class="category-item" data-category="sad">
-                        <div class="mood-icon mood-sad"></div>
-                        <span>难过</span>
-                    </div>
-                    <div class="category-item" data-category="angry">
-                        <div class="mood-icon mood-angry"></div>
-                        <span>愤怒</span>
-                    </div>
-                    <div class="category-item" data-category="bored">
-                        <div class="mood-icon mood-bored"></div>
-                        <span>无聊</span>
-                    </div>
-                    <div class="category-item" data-category="relaxed">
-                        <div class="mood-icon mood-relaxed"></div>
-                        <span>悠闲</span>
-                    </div>
-                    <div class="category-item" data-category="other">
-                        <div class="mood-icon mood-dizzy"></div>
-                        <span>其他</span>
-                    </div>
+        <div class="mood-panel">
+            <p class="mood-title">选择你的心情</p>
+            <div class="mood-options">
+                <div class="mood-item" data-mood="happy">
+                    <div class="mood-icon mood-happy"></div>
+                    <span>开心</span>
                 </div>
-            </div>
-            <div class="sub-layer" id="subLayer" style="display:none;">
-                <p class="sub-back" id="subBack">← 返回</p>
-                <p class="mood-title" id="subTitle"></p>
-                <div class="sub-grid" id="subGrid"></div>
+                <div class="mood-item" data-mood="sad">
+                    <div class="mood-icon mood-sad"></div>
+                    <span>难过</span>
+                </div>
+                <div class="mood-item" data-mood="excited">
+                    <div class="mood-icon mood-excited"></div>
+                    <span>期待</span>
+                </div>
+                <div class="mood-item" data-mood="angry">
+                    <div class="mood-icon mood-angry"></div>
+                    <span>愤怒</span>
+                </div>
+                <div class="mood-item" data-mood="bored">
+                    <div class="mood-icon mood-bored"></div>
+                    <span>无聊</span>
+                </div>
+                <div class="mood-item" data-mood="relaxed">
+                    <div class="mood-icon mood-relaxed"></div>
+                    <span>悠闲</span>
+                </div>
+                <div class="mood-item" data-mood="tired">
+                    <div class="mood-icon mood-tired"></div>
+                    <span>疲惫</span>
+                </div>
+                <div class="mood-item" data-mood="dizzy">
+                    <div class="mood-icon mood-dizzy"></div>
+                    <span>迷糊</span>
+                </div>
             </div>
         </div>
     </div>
@@ -110,13 +111,8 @@
         <header class="header" id="headerArea">
             <div class="stars-container" id="starsContainer"></div>
             <div class="header-moods">
-                                <!-- 你的心情 -->
                 <div class="mood-badge my-mood" id="myMoodBadge" title="我的心情">
                     <div class="mood-badge-icon" id="myMoodIcon"></div>
-                </div>
-                <!-- 你的心情气泡 -->
-                <div class="mood-bubble my-mood" id="myMoodBubble" style="display:none;">
-                    <span id="myBubbleText"></span>
                 </div>
                 <div class="days-badge">
                     <span class="days-number" id="daysCount">100</span>
@@ -124,9 +120,6 @@
                 </div>
                 <div class="mood-badge her-mood" id="herMoodBadge" title="点击选择心情">
                     <div class="mood-badge-icon" id="herMoodIcon"></div>
-                </div>
-                <div class="mood-bubble her-mood" id="moodBubble" title="点击选择心情" style="display:none;">
-                    <span id="bubbleText"></span>
                 </div>
             </div>
             <p class="subtitle">始于 2026.02.07</p>
@@ -141,7 +134,6 @@
             <div class="changelog">
                 <p class="changelog-toggle" id="changelogToggle">📋 更新日志</p>
                 <div class="changelog-content" id="changelogContent">
-                    <p>v1.4 · 2026.05.20 — 心情系统大改，支持大类+小类</p>
                     <p>v1.3 · 2026.05.20 — 新增创作者的话</p>
                     <p>v1.2 · 2026.05.18 — 新增疲惫、迷糊心情图标</p>
                     <p>v1.1 · 2026.05.17 — 新增心情图标，更新日志，设置，句子种类随周期变化</p>
@@ -256,120 +248,29 @@
         bgm.play().catch(() => { musicPlaying = false; iconOn.style.display = 'none'; iconOff.style.display = 'inline'; });
         musicBtn.addEventListener('click', () => { if (musicPlaying) { bgm.pause(); iconOn.style.display = 'none'; iconOff.style.display = 'inline'; } else { bgm.play(); iconOn.style.display = 'inline'; iconOff.style.display = 'none'; } musicPlaying = !musicPlaying; });
 
-        // ========== 心情系统 ==========
         const moodMap = {
-            happy: 'mood-happy', sad: 'mood-sad', angry: 'mood-angry',
-            bored: 'mood-bored', relaxed: 'mood-relaxed', other: 'mood-dizzy'
+            happy: 'mood-happy', sad: 'mood-sad', excited: 'mood-excited', angry: 'mood-angry',
+            bored: 'mood-bored', relaxed: 'mood-relaxed', tired: 'mood-tired', dizzy: 'mood-dizzy'
         };
-        const subData = {
-            happy: ['愉悦','满足','自豪','惊喜','期待','感动'],
-            sad: ['悲伤','失落','委屈','沮丧','心酸','遗憾','孤独'],
-            angry: ['暴躁','恼火','嫉恨','憋屈','不甘','厌恶','寒心'],
-            bored: ['乏味','枯燥','空虚','焦躁','麻木','恍惚'],
-            relaxed: ['惬意','放空','闲适','解脱'],
-            other: ['发癫','抽象','淡然','自嘲','吗喽','偷感']
-        };
-        const categoryNames = { happy: '开心', sad: '难过', angry: '愤怒', bored: '无聊', relaxed: '悠闲', other: '其他' };
-        const bubbleColors = { happy: '#f5e6c8', sad: '#d8e8f4', angry: '#f4d8d4', bored: '#e8e4de', relaxed: '#d8ecd4', other: '#e6ddf2' };
-        const bubbleTextColors = { happy: '#8b6a3a', sad: '#4a6078', angry: '#8b4a4a', bored: '#6b6258', relaxed: '#4a6840', other: '#5c4a70' };
-
-       const myMoodIcon = document.getElementById('myMoodIcon');
-const myMoodBubble = document.getElementById('myMoodBubble');
-const myBubbleText = document.getElementById('myBubbleText');
-
-if (typeof myMoodSub !== 'undefined' && myMoodSub && typeof myMoodCategory !== 'undefined' && moodMap[myMoodCategory]) {
-    // 小类 → 气泡
-    myMoodIcon.style.display = 'none';
-    myMoodBubble.style.display = 'inline-flex';
-    myMoodBubble.style.background = bubbleColors[myMoodCategory];
-    myMoodBubble.style.color = bubbleTextColors[myMoodCategory];
-    myBubbleText.textContent = myMoodSub;
-    myMoodBubble.className = 'mood-bubble ' + myMoodCategory;
-} else if (typeof myMood !== 'undefined' && moodMap[myMood]) {
-    // 只选大类 → 纯图标
-    myMoodIcon.style.display = 'block';
-    myMoodBubble.style.display = 'none';
-    myMoodIcon.className = 'mood-badge-icon ' + moodMap[myMood];
-} else {
-    myMoodIcon.style.display = 'block';
-    myMoodBubble.style.display = 'none';
-    myMoodIcon.className = 'mood-badge-icon mood-empty';
-}
-
+        const myMoodIcon = document.getElementById('myMoodIcon');
+        myMoodIcon.className = 'mood-badge-icon ' + (moodMap[myMood] || 'mood-empty');
         const herMoodIcon = document.getElementById('herMoodIcon');
         const herMoodBadge = document.getElementById('herMoodBadge');
-        const moodBubble = document.getElementById('moodBubble');
-        const bubbleTextEl = document.getElementById('bubbleText');
-        const savedMoodCategory = localStorage.getItem('herMoodCategory');
-        const savedMoodSub = localStorage.getItem('herMoodSub');
-
-        function updateHerDisplay() {
-            if (savedMoodSub && savedMoodCategory && subData[savedMoodCategory] && subData[savedMoodCategory].includes(savedMoodSub)) {
-                herMoodIcon.style.display = 'none';
-                moodBubble.style.display = 'inline-flex';
-                moodBubble.style.background = bubbleColors[savedMoodCategory];
-                moodBubble.style.color = bubbleTextColors[savedMoodCategory];
-                bubbleTextEl.textContent = savedMoodSub;
-                moodBubble.className = 'mood-bubble ' + savedMoodCategory;
-            } else if (savedMoodCategory && moodMap[savedMoodCategory]) {
-                herMoodIcon.style.display = 'block';
-                moodBubble.style.display = 'none';
-                herMoodIcon.className = 'mood-badge-icon ' + moodMap[savedMoodCategory];
-            } else {
-                herMoodIcon.style.display = 'block';
-                moodBubble.style.display = 'none';
-                herMoodIcon.className = 'mood-badge-icon mood-empty';
-            }
-        }
-        updateHerDisplay();
-
+        const savedMood = localStorage.getItem('herMood');
+        if (savedMood && moodMap[savedMood]) { herMoodIcon.className = 'mood-badge-icon ' + moodMap[savedMood]; }
+        else { herMoodIcon.className = 'mood-badge-icon mood-empty'; }
         const moodOverlay = document.getElementById('moodOverlay');
-        const moodPanel = document.getElementById('moodPanel');
-        const categoryLayer = document.getElementById('categoryLayer');
-        const subLayer = document.getElementById('subLayer');
-        const subGrid = document.getElementById('subGrid');
-        const subTitle = document.getElementById('subTitle');
-        const subBack = document.getElementById('subBack');
-
-        herMoodBadge.addEventListener('click', () => { moodOverlay.style.display = 'flex'; document.body.style.overflow = 'hidden'; categoryLayer.style.display = 'block'; subLayer.style.display = 'none'; });
-        moodBubble.addEventListener('click', () => { moodOverlay.style.display = 'flex'; document.body.style.overflow = 'hidden'; categoryLayer.style.display = 'block'; subLayer.style.display = 'none'; });
+        herMoodBadge.addEventListener('click', () => { moodOverlay.style.display = 'flex'; document.body.style.overflow = 'hidden'; });
         moodOverlay.addEventListener('click', function(e) { if (e.target === this) { moodOverlay.style.display = 'none'; document.body.style.overflow = ''; } });
-
-        document.querySelectorAll('.category-item').forEach(item => {
+        document.querySelectorAll('.mood-item').forEach(item => {
             item.addEventListener('click', function() {
-                const category = this.getAttribute('data-category');
-                categoryLayer.style.display = 'none';
-                subLayer.style.display = 'block';
-                subTitle.textContent = categoryNames[category];
-                subGrid.innerHTML = '';
-                const onlyDiv = document.createElement('div');
-                onlyDiv.className = 'sub-item sub-only';
-                onlyDiv.textContent = '仅选「' + categoryNames[category] + '」';
-                onlyDiv.onclick = function() {
-                    localStorage.setItem('herMoodCategory', category);
-                    localStorage.removeItem('herMoodSub');
-                    updateHerDisplay();
-                    moodOverlay.style.display = 'none';
-                    document.body.style.overflow = '';
-                };
-                subGrid.appendChild(onlyDiv);
-                subData[category].forEach(sub => {
-                    const div = document.createElement('div');
-                    div.className = 'sub-item';
-                    div.textContent = sub;
-                    div.onclick = function() {
-                        localStorage.setItem('herMoodCategory', category);
-                        localStorage.setItem('herMoodSub', sub);
-                        updateHerDisplay();
-                        moodOverlay.style.display = 'none';
-                        document.body.style.overflow = '';
-                    };
-                    subGrid.appendChild(div);
-                });
+                const mood = this.getAttribute('data-mood');
+                localStorage.setItem('herMood', mood);
+                herMoodIcon.className = 'mood-badge-icon ' + moodMap[mood];
+                moodOverlay.style.display = 'none';
+                document.body.style.overflow = '';
             });
         });
-
-        subBack.addEventListener('click', function() { categoryLayer.style.display = 'block'; subLayer.style.display = 'none'; });
 
         document.getElementById('changelogContent').style.display = 'none';
         document.getElementById('changelogToggle').addEventListener('click', function() {
