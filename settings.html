@@ -242,12 +242,25 @@
             letter-spacing: 3px;
             margin-bottom: 18px;
         }
-        .creator-note-content {
-            font-size: 15px;
+                .creator-note-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .note-card {
+            background: #252540;
+            border: 1px solid #3a3a58;
+            border-radius: 12px;
+            padding: 16px 18px;
+        }
+
+        .note-card p {
+            font-size: 14px;
             color: #c8c0b0;
             line-height: 2;
             letter-spacing: 1px;
-            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -300,12 +313,21 @@
     </div>
 
     <!-- 创作者的话 - 内容页 -->
+        <!-- 创作者的话 - 内容页 -->
     <div class="creator-note-overlay" id="creatorNoteOverlay">
         <div class="creator-note-box">
             <span class="creator-note-close" id="creatorNoteClose">&times;</span>
             <p class="creator-note-title">创作者的话</p>
-            <div class="creator-note-content" id="creatorNoteContent">
-                啊啊啊！我好想和你待在一起啊！2026.5.20
+            <div class="creator-note-cards" id="creatorNoteCards">
+                <div class="note-card">
+                    <p>啊啊啊！我好想和你待在一起啊！2026.5.20</p>
+                </div>
+                <div class="note-card">
+                    <p>第二段文案，可以继续写。</p>
+                </div>
+                <div class="note-card">
+                    <p>第三段，想加多少加多少。</p>
+                </div>
             </div>
         </div>
     </div>
