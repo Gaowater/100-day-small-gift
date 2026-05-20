@@ -1090,13 +1090,76 @@ body.night-mode .changelog-content p {
     top: 24px;
     left: 18px;
     z-index: 998;
-    font-size: 18px;
-    color: #d4c0a8;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    border: none;
-    letter-spacing: 1px;
-    transition: color 0.3s ease;
+    transition: opacity 0.3s ease;
 }
-.settings-link:hover { color: #b8937a; }
-body.night-mode .settings-link { color: #9088a0; }
-body.night-mode .settings-link:hover { color: #b0a8c0; }
+.settings-link:hover { opacity: 0.7; }
+
+/* 齿轮图标 - CSS绘制 */
+.settings-icon {
+    position: relative;
+    width: 20px;
+    height: 20px;
+}
+
+/* 齿轮中心圆 */
+.settings-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: #d4c0a8;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* 齿轮外圈 + 齿 */
+.settings-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: 
+        radial-gradient(circle, transparent 5px, #d4c0a8 5px, #d4c0a8 6px, transparent 6px),
+        conic-gradient(
+            transparent 0deg, transparent 15deg, #d4c0a8 15deg, #d4c0a8 30deg,
+            transparent 30deg, transparent 60deg, #d4c0a8 60deg, #d4c0a8 75deg,
+            transparent 75deg, transparent 105deg, #d4c0a8 105deg, #d4c0a8 120deg,
+            transparent 120deg, transparent 150deg, #d4c0a8 150deg, #d4c0a8 165deg,
+            transparent 165deg, transparent 195deg, #d4c0a8 195deg, #d4c0a8 210deg,
+            transparent 210deg, transparent 240deg, #d4c0a8 240deg, #d4c0a8 255deg,
+            transparent 255deg, transparent 285deg, #d4c0a8 285deg, #d4c0a8 300deg,
+            transparent 300deg, transparent 330deg, #d4c0a8 330deg, #d4c0a8 345deg,
+            transparent 345deg, transparent 360deg
+        );
+}
+
+body.night-mode .settings-icon::before,
+body.night-mode .settings-icon::after {
+    background-color: #9088a0;
+}
+body.night-mode .settings-icon::after {
+    background: 
+        radial-gradient(circle, transparent 5px, #9088a0 5px, #9088a0 6px, transparent 6px),
+        conic-gradient(
+            transparent 0deg, transparent 15deg, #9088a0 15deg, #9088a0 30deg,
+            transparent 30deg, transparent 60deg, #9088a0 60deg, #9088a0 75deg,
+            transparent 75deg, transparent 105deg, #9088a0 105deg, #9088a0 120deg,
+            transparent 120deg, transparent 150deg, #9088a0 150deg, #9088a0 165deg,
+            transparent 165deg, transparent 195deg, #9088a0 195deg, #9088a0 210deg,
+            transparent 210deg, transparent 240deg, #9088a0 240deg, #9088a0 255deg,
+            transparent 255deg, transparent 285deg, #9088a0 285deg, #9088a0 300deg,
+            transparent 300deg, transparent 330deg, #9088a0 330deg, #9088a0 345deg,
+            transparent 345deg, transparent 360deg
+        );
+}
