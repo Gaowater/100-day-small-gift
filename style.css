@@ -1129,15 +1129,18 @@ body.night-mode .mood-empty {
     letter-spacing: 1px;
 }
 
-/* 弹窗内的图标复用 */
-.mood-item .mood-happy { width: 22px; height: 22px; }
-.mood-item .mood-sad { width: 20px; height: 18px; }
-.mood-item .mood-excited { width: 20px; height: 20px; }
-.mood-item .mood-angry { width: 18px; height: 22px; }
-.mood-item .mood-bored { width: 20px; height: 20px; }
-.mood-item .mood-relaxed { width: 20px; height: 18px; }
-.mood-item .mood-tired { width: 20px; height: 16px; }
-.mood-item .mood-dizzy { width: 20px; height: 20px; }
+/* 弹窗内的图标复用（11个） */
+.mood-item .mood-yuyue { width: 22px; height: 22px; }
+.mood-item .mood-youxian { width: 20px; height: 18px; }
+.mood-item .mood-qidai { width: 20px; height: 20px; }
+.mood-item .mood-ziyou { width: 22px; height: 22px; }
+.mood-item .mood-beishang { width: 20px; height: 18px; }
+.mood-item .mood-gudu { width: 20px; height: 20px; }
+.mood-item .mood-fennu { width: 20px; height: 18px; }
+.mood-item .mood-yihan { width: 20px; height: 20px; }
+.mood-item .mood-wuliao { width: 20px; height: 20px; }
+.mood-item .mood-kongxu { width: 22px; height: 16px; }
+.mood-item .mood-fadian { width: 20px; height: 20px; }
 
                         /* ========== 更新日志 ========== */
 .changelog {
