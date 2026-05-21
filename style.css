@@ -876,33 +876,39 @@ body.night-mode .footer-quote {
     box-shadow: 0 0 4px 1px rgba(140, 184, 138, 0.4);
 }
 
-/* 期待 - 实心金星（原期待） */
+/* 期待 - 圆润饱满星光圆 全填充 */
 .mood-qidai {
-    background: transparent;
     position: relative;
-    width: 0; height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 10px solid #e8c97a;
+    width: 18px;
+    height: 18px;
+    background: #e8c97a;
+    border-radius: 50%;
     margin: 4px auto 0;
+    box-shadow: 0 0 6px rgba(232, 201, 122, 0.5);
 }
+/* 中心微光圆点 寓意满心期许 */
 .mood-qidai::before {
     content: '';
     position: absolute;
-    top: 3px; left: -6px;
-    width: 0; height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 10px solid #e8c97a;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 7px;
+    height: 7px;
+    background: #fff8e0;
+    border-radius: 50%;
 }
+/* 上扬小弧度尖角 代表憧憬向往 */
 .mood-qidai::after {
     content: '';
     position: absolute;
-    top: -2px; left: -2px;
-    width: 4px; height: 4px;
-    background: #fff;
-    border-radius: 50%;
-    box-shadow: 0 0 3px 1px rgba(232, 201, 122, 0.6);
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 8px;
+    background: #e8c97a;
+    border-radius: 50% 50% 0 0;
 }
 
 /* 自由 - 实心浅蓝圆 + 两侧小圆弧 */
@@ -986,15 +992,19 @@ body.night-mode .footer-quote {
     border-radius: 2px;
 }
 
-/* 遗憾 - 缺一角的不完整圆 */
+/* 遗憾 - 缺一角的不完整圆（实心填充+右上角缺口） */
 .mood-yihan {
     position: relative;
-    width: 18px; height: 18px;
-    border: 2px solid #c0a890;
+    width: 18px;
+    height: 18px;
+    /* 实心填充：背景色 = 边框色 */
+    background: #c0a890;
+    /* 去掉原有边框，避免双层效果 */
+    border: none;
     border-radius: 50%;
-    background: transparent;
     box-shadow: 0 0 3px rgba(192, 168, 144, 0.3);
-    clip-path: polygon(0% 0%, 80% 0%, 80% 20%, 100% 20%, 100% 100%, 0% 100%);
+    /* 右上角明显缺口 */
+    clip-path: polygon(0% 0%, 75% 0%, 75% 25%, 100% 25%, 100% 100%, 0% 100%);
 }
 
 /* 第三行：空心型 + 自定义 */
