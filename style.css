@@ -852,10 +852,11 @@ body.night-mode .footer-quote {
     background: transparent;
 }
 
-/* ====== 6个心情CSS图标 ====== */
+/* ====== 11个心情CSS图标（统一圆形/椭圆风格） ====== */
 
-/* 开心 - 小光点 */
-.mood-happy {
+/* 第一行：饱满型 */
+/* 愉悦 - 实心暖金圆 + 光晕（原开心） */
+.mood-yuyue {
     position: relative;
     background: #f0b34b;
     border-radius: 50%;
@@ -868,15 +869,15 @@ body.night-mode .footer-quote {
         0 -5px 0 0 rgba(240, 179, 75, 0.3);
 }
 
-/* 难过 - 小水滴 */
-.mood-sad {
-    background: #7eb8da;
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    box-shadow: 0 0 4px 1px rgba(126, 184, 218, 0.4);
+/* 悠闲 - 实心绿叶椭圆（原悠闲） */
+.mood-youxian {
+    background: #8cb88a;
+    border-radius: 60% 5% 60% 5% / 50% 30% 70% 50%;
+    box-shadow: 0 0 4px 1px rgba(140, 184, 138, 0.4);
 }
 
-/* 期待 - 小星星 */
-.mood-excited {
+/* 期待 - 实心金星（原期待） */
+.mood-qidai {
     background: transparent;
     position: relative;
     width: 0; height: 0;
@@ -885,7 +886,7 @@ body.night-mode .footer-quote {
     border-bottom: 10px solid #e8c97a;
     margin: 4px auto 0;
 }
-.mood-excited::before {
+.mood-qidai::before {
     content: '';
     position: absolute;
     top: 3px; left: -6px;
@@ -894,7 +895,7 @@ body.night-mode .footer-quote {
     border-right: 6px solid transparent;
     border-top: 10px solid #e8c97a;
 }
-.mood-excited::after {
+.mood-qidai::after {
     content: '';
     position: absolute;
     top: -2px; left: -2px;
@@ -904,70 +905,158 @@ body.night-mode .footer-quote {
     box-shadow: 0 0 3px 1px rgba(232, 201, 122, 0.6);
 }
 
-/* 愤怒 - 小火焰 */
-.mood-angry {
+/* 自由 - 实心浅蓝圆 + 两侧小圆弧 */
+.mood-ziyou {
     position: relative;
-    background: transparent;
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 14px solid #e07050;
-    margin: 2px auto 0;
-}
-.mood-angry::before {
-    content: '';
-    position: absolute;
-    top: 7px;
-    left: -4px;
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-bottom: 8px solid #f09060;
-}
-.mood-angry::after {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: -1px;
-    width: 3px;
-    height: 3px;
-    background: #ffd080;
+    background: #7eb8da;
     border-radius: 50%;
-    box-shadow: 0 0 3px 1px rgba(255, 208, 128, 0.6);
+    box-shadow: 0 0 4px 1px rgba(126, 184, 218, 0.4);
 }
-/* 无聊 - 空心圆 */
-.mood-bored {
+.mood-ziyou::before {
+    content: '';
+    position: absolute;
+    top: 2px; left: -5px;
+    width: 8px; height: 8px;
+    border: 2px solid #7eb8da;
+    border-radius: 50%;
     background: transparent;
+}
+.mood-ziyou::after {
+    content: '';
+    position: absolute;
+    top: 2px; right: -5px;
+    width: 8px; height: 8px;
+    border: 2px solid #7eb8da;
+    border-radius: 50%;
+    background: transparent;
+}
+
+/* 第二行：半空心型 */
+/* 悲伤 - 水滴椭圆，中间挖空 */
+.mood-beishang {
+    position: relative;
+    width: 18px; height: 16px;
+    background: #7eb8da;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    box-shadow: 0 0 4px 1px rgba(126, 184, 218, 0.4);
+}
+.mood-beishang::after {
+    content: '';
+    position: absolute;
+    top: 5px; left: 5px;
+    width: 8px; height: 6px;
+    background: #fffdf9;
+    border-radius: 50%;
+}
+
+/* 孤独 - 空心圆，内底部一个小实心点 */
+.mood-gudu {
+    position: relative;
+    width: 18px; height: 18px;
     border: 2px solid #b0a090;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: 0 0 3px rgba(176, 160, 144, 0.3);
+}
+.mood-gudu::after {
+    content: '';
+    position: absolute;
+    bottom: 3px; left: 50%;
+    transform: translateX(-50%);
+    width: 4px; height: 4px;
+    background: #b0a090;
+    border-radius: 50%;
+}
+
+/* 愤怒 - 椭圆，中间横向空心裂缝 */
+.mood-fennu {
+    position: relative;
+    width: 18px; height: 16px;
+    background: #e07050;
+    border-radius: 50%;
+    box-shadow: 0 0 4px 1px rgba(224, 112, 80, 0.4);
+}
+.mood-fennu::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px; height: 3px;
+    background: #fffdf9;
+    border-radius: 2px;
+}
+
+/* 遗憾 - 缺一角的不完整圆 */
+.mood-yihan {
+    position: relative;
+    width: 18px; height: 18px;
+    border: 2px solid #c0a890;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: 0 0 3px rgba(192, 168, 144, 0.3);
+    clip-path: polygon(0% 0%, 80% 0%, 80% 20%, 100% 20%, 100% 100%, 0% 100%);
+}
+
+/* 第三行：空心型 + 自定义 */
+/* 无聊 - 空心圆（原无聊） */
+.mood-wuliao {
+    width: 18px; height: 18px;
+    border: 2px solid #b0a090;
+    border-radius: 50%;
+    background: transparent;
     box-shadow: 0 0 3px rgba(176, 160, 144, 0.3);
 }
 
-/* 悠闲 - 小叶子 */
-.mood-relaxed {
-    background: #8cb88a;
-    border-radius: 60% 5% 60% 5% / 50% 30% 70% 50%;
-    box-shadow: 0 0 4px 1px rgba(140, 184, 138, 0.4);
-}
-
-/* 疲惫 - 低垂椭圆 */
-.mood-tired {
-    background: #c0a890;
-    border-radius: 50% / 35%;
-    box-shadow: 0 0 4px 1px rgba(192, 168, 144, 0.4);
-}
-
-/* 迷糊 - 螺旋纹 */
-.mood-dizzy {
+/* 空虚 - 横向拉伸的空心椭圆 */
+.mood-kongxu {
+    width: 22px; height: 14px;
+    border: 2px solid #c0b8a8;
+    border-radius: 50%;
     background: transparent;
+    box-shadow: 0 0 3px rgba(192, 184, 168, 0.3);
+}
+
+/* 发癫 - 圆形底座 + 内部交叉折线 */
+.mood-fadian {
+    position: relative;
+    width: 18px; height: 18px;
     border: 2px solid #c0b0d0;
     border-radius: 50%;
-    box-shadow: 
-        0 0 4px 1px rgba(192, 176, 208, 0.4),
-        inset 0 0 0 2px #fffdf9,
-        inset 0 0 0 4px #c0b0d0;
+    background: transparent;
+    box-shadow: 0 0 4px 1px rgba(192, 176, 208, 0.4);
 }
+.mood-fadian::before {
+    content: '';
+    position: absolute;
+    top: 4px; left: 6px;
+    width: 6px; height: 6px;
+    border-right: 2px solid #c0b0d0;
+    border-bottom: 2px solid #c0b0d0;
+    transform: rotate(45deg);
+}
+.mood-fadian::after {
+    content: '';
+    position: absolute;
+    top: 6px; left: 3px;
+    width: 6px; height: 6px;
+    border-left: 2px solid #c0b0d0;
+    border-top: 2px solid #c0b0d0;
+    transform: rotate(45deg);
+}
+
+/* ====== 夜景心情图标适配 ====== */
+/* 夜景模式下，所有半空心图标的挖空部分换成深色背景色 */
+body.night-mode .mood-beishang::after { background: #252540; }
+body.night-mode .mood-fennu::after { background: #252540; }
+/* 空心图标在夜景下边框颜色调整 */
+body.night-mode .mood-gudu { border-color: #8880a0; }
+body.night-mode .mood-gudu::after { background: #8880a0; }
+body.night-mode .mood-yihan { border-color: #8880a0; }
+body.night-mode .mood-wuliao { border-color: #8880a0; }
+body.night-mode .mood-kongxu { border-color: #8880a0; }
+body.night-mode .mood-fadian { border-color: #9088a0; }
+body.night-mode .mood-fadian::before { border-color: #9088a0; }
+body.night-mode .mood-fadian::after { border-color: #9088a0; }
 
 /* ====== 夜景心情图标适配 ====== */
 body.night-mode .mood-badge {
