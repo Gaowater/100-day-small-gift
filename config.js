@@ -41,5 +41,5 @@ const cardsData = [
     }
 ];
 
-// 你的心情预设（可选：happy / sad / excited / angry / bored / relaxed/ tired/ dizzy）
-const myMood = "bored";
+// 你的心情预设（可选：yuyue / youxian / qidai / ziyou / beishang / gudu / fennv / yihan / wuliao / kongxu / fadian /）
+const myMood = "gudu";
