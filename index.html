@@ -259,10 +259,20 @@
         bgm.play().catch(() => { musicPlaying = false; iconOn.style.display = 'none'; iconOff.style.display = 'inline'; });
         musicBtn.addEventListener('click', () => { if (musicPlaying) { bgm.pause(); iconOn.style.display = 'none'; iconOff.style.display = 'inline'; } else { bgm.play(); iconOn.style.display = 'inline'; iconOff.style.display = 'none'; } musicPlaying = !musicPlaying; });
 
-        const moodMap = {
-            happy: 'mood-happy', sad: 'mood-sad', excited: 'mood-excited', angry: 'mood-angry',
-            bored: 'mood-bored', relaxed: 'mood-relaxed', tired: 'mood-tired', dizzy: 'mood-dizzy'
+            const moodMap = {
+            yuyue: 'mood-yuyue',
+            youxian: 'mood-youxian',
+            qidai: 'mood-qidai',
+            ziyou: 'mood-ziyou',
+            beishang: 'mood-beishang',
+            gudu: 'mood-gudu',
+            fennu: 'mood-fennu',
+            yihan: 'mood-yihan',
+            wuliao: 'mood-wuliao',
+            kongxu: 'mood-kongxu',
+            fadian: 'mood-fadian'
         };
+        
         const myMoodIcon = document.getElementById('myMoodIcon');
         myMoodIcon.className = 'mood-badge-icon ' + (moodMap[myMood] || 'mood-empty');
         const herMoodIcon = document.getElementById('herMoodIcon');
