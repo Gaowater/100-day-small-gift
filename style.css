@@ -992,18 +992,17 @@ body.night-mode .footer-quote {
     border-radius: 2px;
 }
 
-/* 遗憾 - 缺1/4弧形缺口实心圆 */
+/* 遗憾 - 精致弧形缺口实心圆（优雅不粗暴） */
 .mood-yihan {
     position: relative;
     width: 18px;
     height: 18px;
     background: #c0a890;
+    border: none;
     border-radius: 50%;
     box-shadow: 0 0 3px rgba(192, 168, 144, 0.3);
-    border: none;
-    /* 主体保留3/4，右上角平滑切掉1/4圆弧缺口 */
-    clip-path: circle(50% at 50% 50% calc(100% - 25%));
-    clip-path: path('M9 0 A9 9 0 0 1 18 9 L18 18 H0 V0 Z');
+    /* 核心：右上角柔和弧形大缺口，流畅不生硬 */
+    clip-path: path("M 18 2 A 16 16 0 0 0 2 18 L 18 18 Z");
 }
 
 /* 第三行：空心型 + 自定义 */
