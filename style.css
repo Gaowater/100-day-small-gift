@@ -1262,3 +1262,11 @@ body.night-mode .settings-icon::after {
             transparent 345deg, transparent 360deg
         );
 }
+
+/* 弹窗图标强制对齐 */
+.mood-item .mood-icon {
+    width: 24px !important;
+    height: 24px !important;
+    min-height: 24px !important;
+    flex-shrink: 0;
+}
