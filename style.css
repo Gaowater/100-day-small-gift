@@ -992,14 +992,14 @@ body.night-mode .footer-quote {
     border-radius: 2px;
 }
 
-/* 遗憾 - 实心圆，切掉1/4缺口 */
+/* 遗憾 - 实心圆，右上角1/4缺口 */
 .mood-yihan {
     position: relative;
     width: 18px; height: 18px;
     background: #c0a890;
     border-radius: 50%;
     box-shadow: 0 0 3px rgba(192, 168, 144, 0.3);
-    clip-path: polygon(100% 0%, 100% 100%, 0% 100%, 0% 0%, 75% 0%, 75% 25%, 100% 25%);
+    clip-path: polygon(0% 0%, 70% 0%, 70% 30%, 100% 30%, 100% 100%, 0% 100%);
 }
 
 /* 第三行：空心型 + 自定义 */
