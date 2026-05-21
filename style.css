@@ -992,19 +992,17 @@ body.night-mode .footer-quote {
     border-radius: 2px;
 }
 
-/* 遗憾 - 缺一角的不完整圆（实心填充+右上角缺口） */
+/* 遗憾 - 精致弧形缺口实心圆（优雅不粗暴） */
 .mood-yihan {
     position: relative;
     width: 18px;
     height: 18px;
-    /* 实心填充：背景色 = 边框色 */
     background: #c0a890;
-    /* 去掉原有边框，避免双层效果 */
     border: none;
     border-radius: 50%;
     box-shadow: 0 0 3px rgba(192, 168, 144, 0.3);
-    /* 右上角明显缺口 */
-    clip-path: polygon(0% 0%, 75% 0%, 75% 25%, 100% 25%, 100% 100%, 0% 100%);
+    /* 核心：右上角柔和弧形大缺口，流畅不生硬 */
+    clip-path: path("M 18 2 A 16 16 0 0 0 2 18 L 18 18 Z");
 }
 
 /* 第三行：空心型 + 自定义 */
