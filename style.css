@@ -1126,6 +1126,9 @@ body.night-mode .mood-empty {
     width: 28px;
     height: 28px;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .mood-item span {
@@ -1134,18 +1137,17 @@ body.night-mode .mood-empty {
     letter-spacing: 1px;
 }
 
-/* 弹窗内的图标复用（11个） */
 .mood-item .mood-yuyue { width: 22px; height: 22px; }
-.mood-item .mood-youxian { width: 20px; height: 18px; }
-.mood-item .mood-qidai { width: 20px; height: 20px; }
+.mood-item .mood-youxian { width: 20px; height: 22px; }
+.mood-item .mood-qidai { width: 20px; height: 22px; }
 .mood-item .mood-ziyou { width: 22px; height: 22px; }
-.mood-item .mood-beishang { width: 20px; height: 18px; }
-.mood-item .mood-gudu { width: 20px; height: 20px; }
-.mood-item .mood-fennu { width: 20px; height: 18px; }
-.mood-item .mood-yihan { width: 20px; height: 20px; }
-.mood-item .mood-wuliao { width: 20px; height: 20px; }
-.mood-item .mood-kongxu { width: 22px; height: 16px; }
-.mood-item .mood-fadian { width: 20px; height: 20px; }
+.mood-item .mood-beishang { width: 20px; height: 22px; }
+.mood-item .mood-gudu { width: 20px; height: 22px; }
+.mood-item .mood-fennu { width: 20px; height: 22px; }
+.mood-item .mood-yihan { width: 20px; height: 22px; }
+.mood-item .mood-wuliao { width: 20px; height: 22px; }
+.mood-item .mood-kongxu { width: 22px; height: 22px; }
+.mood-item .mood-fadian { width: 20px; height: 22px; }
 
                         /* ========== 更新日志 ========== */
 .changelog {
