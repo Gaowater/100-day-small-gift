@@ -1012,13 +1012,23 @@ body.night-mode .footer-quote {
     box-shadow: 0 0 3px rgba(176, 160, 144, 0.3);
 }
 
-/* 空虚 - 横向拉伸的空心椭圆 */
+/* 空虚 - 空心椭圆 + 内部虚线 */
 .mood-kongxu {
-    width: 22px; height: 14px;
+    position: relative;
+    width: 22px; height: 16px;
     border: 2px solid #c0b8a8;
     border-radius: 50%;
     background: transparent;
     box-shadow: 0 0 3px rgba(192, 184, 168, 0.3);
+}
+.mood-kongxu::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px; height: 10px;
+    border: 1.5px dashed #c0b8a8;
+    border-radius: 50%;
 }
 
 /* 发癫 - 圆形底座 + 内部交叉折线 */
@@ -1059,6 +1069,7 @@ body.night-mode .mood-gudu::after { background: #8880a0; }
 body.night-mode .mood-yihan { border-color: #8880a0; }
 body.night-mode .mood-wuliao { border-color: #8880a0; }
 body.night-mode .mood-kongxu { border-color: #8880a0; }
+body.night-mode .mood-kongxu::after { border-color: #8880a0; }
 body.night-mode .mood-fadian { border-color: #9088a0; }
 body.night-mode .mood-fadian::before { border-color: #9088a0; }
 body.night-mode .mood-fadian::after { border-color: #9088a0; }
@@ -1146,7 +1157,7 @@ body.night-mode .mood-empty {
 .mood-item .mood-fennu { width: 20px; height: 22px; }
 .mood-item .mood-yihan { width: 20px; height: 22px; }
 .mood-item .mood-wuliao { width: 20px; height: 22px; }
-.mood-item .mood-kongxu { width: 22px; height: 22px; }
+.mood-item .mood-kongxu { width: 22px; height: 18px; }
 .mood-item .mood-fadian { width: 20px; height: 22px; }
 
                         /* ========== 更新日志 ========== */
