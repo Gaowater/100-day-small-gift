@@ -38,7 +38,7 @@ const cardsData = [
         image: "8.jpg",
         title: "100天！",
         text: "终于！100 天了！2026.5.17！好快啊…似乎有点单调，再加一个字呢？好快乐啊！期待下一个 100 天！"
-    }
+    },
      {
         image: "9.jpg",
         title: "值得我铭记的日子！",
@@ -51,7 +51,7 @@ const cardsData = [
                 2026.4.30这是你送我果切的日子！
                 2026.5.18···美梦！！
                 2026.5.23这是你送我甜点的日子！"
-    },
+    }
 ];
 
 // 你的心情预设（可选：yuyue / youxian / qidai / ziyou / beishang / gudu / fennu / yihan / wuliao / kongxu / fadian /）
