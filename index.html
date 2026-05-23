@@ -202,6 +202,7 @@
             let hintHTML = '';
             if (index === 4) hintHTML = '<p class="card-hint">✦ 双击这里</p>';
             if (index === 6) hintHTML = '<p class="card-hint">✦ 双击这里</p>';
+            if (index === 8) hintHTML = '<p class="card-hint">✦ 双击这里</p>';
             cardEl.innerHTML = `
                 <div class="card-image" onclick="openLightbox('images/${card.image}')">
                     <img src="images/${card.image}" alt="${card.title || '图片' + (index + 1)}" loading="lazy">
@@ -213,6 +214,7 @@
                 </div>`;
             if (index === 4) cardEl.addEventListener('dblclick', e => { e.preventDefault(); openAlbum(); });
             if (index === 6) cardEl.addEventListener('dblclick', e => { e.preventDefault(); openSingleImage('images/album/secret.jpg'); });
+            if (index === 8) cardEl.addEventListener('dblclick', e => { e.preventDefault(); openSingleImage('images/album/secret2.jpg'); });
             container.appendChild(cardEl);
         });
 
