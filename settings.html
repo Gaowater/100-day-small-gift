@@ -217,17 +217,22 @@
             align-items: center;
             justify-content: center;
         }
+        
         .creator-note-box {
         background: #1a1a2e;
-        border: 1px solid #3a3a58;
+        border: none;
         border-radius: 16px;
         padding: 40px 36px 36px;
         width: 480px;
         max-width: 90vw;
         max-height: 75vh;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
         position: relative;
         text-align: center;
         }
+        
         .creator-note-close {
             position: absolute;
             top: 8px; right: 14px;
@@ -270,6 +275,10 @@
         text-align: left;
         max-width: 400px;
         margin: 0 auto;
+        }
+        
+        .creator-note-box::-webkit-scrollbar {
+        display: none;
         }
     </style>
 </head>
