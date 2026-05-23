@@ -51,7 +51,7 @@ const cardsData = [
                 2026.4.30这是你送我果切的日子！
                 2026.5.18···美梦！！
                 2026.5.23这是你送我甜点的日子！"
-    }
+    },
 ];
 
 // 你的心情预设（可选：yuyue / youxian / qidai / ziyou / beishang / gudu / fennu / yihan / wuliao / kongxu / fadian /）
