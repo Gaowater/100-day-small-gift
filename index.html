@@ -232,9 +232,27 @@
             });
             overlay.style.display = 'flex'; document.body.style.overflow = 'hidden';
         }
-        document.getElementById('albumOverlay').addEventListener('click', function(e) {
-            if (e.target === this || e.target.className === 'album-close') { this.style.display = 'none'; document.body.style.overflow = ''; const v = this.querySelector('video'); if (v) v.pause(); }
+                document.getElementById('albumOverlay').addEventListener('click', function(e) {
+            if (e.target === this || e.target.className === 'album-close') {
+                this.style.display = 'none';
+                document.body.style.overflow = '';
+                this.querySelector('.album-video').style.display = 'block';
+                const v = this.querySelector('video');
+                if (v) v.pause();
+            }
         });
+                function openAlbum2() {
+            const overlay = document.getElementById('albumOverlay');
+            overlay.querySelector('.album-grid').innerHTML = '';
+            overlay.querySelector('.album-video').style.display = 'none';
+            ['a13.jpg','a14.jpg'].forEach(photo => {
+                const img = document.createElement('img');
+                img.src = 'images/album/' + photo; img.alt = '相册照片'; img.loading = 'lazy';
+                img.onclick = () => openLightbox('images/album/' + photo);
+                overlay.querySelector('.album-grid').appendChild(img);
+            });
+            overlay.style.display = 'flex'; document.body.style.overflow = 'hidden';
+        }
 
         function openSingleImage(src) {
             const overlay = document.createElement('div'); overlay.className = 'single-image-overlay';
