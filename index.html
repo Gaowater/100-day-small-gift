@@ -241,13 +241,15 @@
                 if (v) v.pause();
             }
         });
-                function openAlbum2() {
+            function openAlbum2() {
             const overlay = document.getElementById('albumOverlay');
             overlay.querySelector('.album-grid').innerHTML = '';
             overlay.querySelector('.album-video').style.display = 'none';
             ['a13.jpg','a14.jpg'].forEach(photo => {
                 const img = document.createElement('img');
                 img.src = 'images/album/' + photo; img.alt = '相册照片'; img.loading = 'lazy';
+                img.style.width = '200px';
+                img.style.height = '140px';
                 img.onclick = () => openLightbox('images/album/' + photo);
                 overlay.querySelector('.album-grid').appendChild(img);
             });
